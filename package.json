@@ -1,8 +1,20 @@
 {
     "name": "CSC648-Team12",
     "version": "1.0.0",
-    "keywords": ["util", "functional", "server", "client", "browser"],
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
     "author": "stephaniesantana",
     "contributors": [],
-    "dependencies": {}
+    "dependencies": {
+        "ejs": "^2.6.1",
+        "express": "^4.16.3"
+    },
+    "scripts": {
+    	"start": "node app.js"
+    }
 }
