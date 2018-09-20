@@ -2,12 +2,6 @@ const express = require("express");
 
 const app = express();
 
-
-//for setting up loading of images
-app.configure(function(){
-    app.use(express.static(__dirname + '/public'));
-});
-
 app.set("view engine", "ejs");
 
 app.get("/", (req, res)=> {
