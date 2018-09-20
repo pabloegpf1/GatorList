@@ -10,7 +10,7 @@ app.get("/", (req, res)=> {
 	res.render("index")
 })
 
-app.get("/index.html, (req, res) => {
+app.get("/index.html", (req, res)=> {
 
 	res.render("index")
 })
