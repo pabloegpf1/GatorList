@@ -2,10 +2,7 @@ const express = require("express");
 
 const app = express();
 
-path.join(_dirname, 'public');
-
 app.set("view engine", "ejs");
-
 
 app.get("/", (req, res)=> {
 
