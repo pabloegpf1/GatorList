@@ -2,8 +2,11 @@ const express = require("express");
 
 const app = express();
 
+path.join(_dirname, 'public')
+
 app.set("view engine", "ejs");
 
+path.join(_dirname, 'public')
 
 app.get("/", (req, res)=> {
 
