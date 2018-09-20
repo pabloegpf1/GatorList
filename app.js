@@ -2,6 +2,12 @@ const express = require("express");
 
 const app = express();
 
+
+//for setting up loading of images
+app.configure(function(){
+    app.use(express.static(__dirname + '/public'));
+});
+
 app.set("view engine", "ejs");
 
 app.get("/", (req, res)=> {
@@ -48,9 +54,6 @@ app.get("/aboutHarry.html", (req, res)=> {
 
 	res.render("aboutHarry")
 })
-
-//for setting up loading of images
-app.use(express.static(__dirname + '/public'));
 
 app.listen(process.env.PORT || 3000, ()=> {
 
