@@ -6,6 +6,7 @@
 
 body {
   padding-top: 54px;
+  font-family: sans-serif;
 }
 
 @media (min-width: 992px) {
@@ -14,3 +15,7 @@ body {
   }
 }
 
+header {
+    align-content: center;
+    font-family: sans-serif;
+}
