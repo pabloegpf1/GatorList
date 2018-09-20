@@ -50,7 +50,7 @@ app.get("/aboutHarry.html", (req, res)=> {
 })
 
 //for setting up loading of images
-app.use(express.static(__dirname + 'public'));
+app.use(express.static(__dirname + '/public'));
 
 app.listen(process.env.PORT || 3000, ()=> {
 
