@@ -1,53 +1,47 @@
 const express = require("express");
-
 const app = express();
+const bodyParser = require('body-parser');
+var User = require('./models/user');
+const indexRouter = require('./routes/index');
+const aboutRouter = require('./routes/about');
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res)=> {
+const Sequelize = require('sequelize');
 
-	res.render("index")
-})
+const sequelize = new Sequelize('d9i5vj00kei9ml', 'fjncbkvtfeudms', '9cf011343f162ec0a08d589d26432061144a6ccf9fb86b906d274b7bf11c608d', {
+  host: 'ec2-54-83-37-223.compute-1.amazonaws.com',
+  dialect: 'postgres',
+  dialectOptions:{
+    ssl: true
+  },
+  operatorsAliases: false,
 
-app.get("/index.html", (req, res)=> {
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
+});
 
-	res.render("index")
-})
+app.use('/', indexRouter);
+app.use('/about', aboutRouter);
 
-app.get("/aboutStephanie.html", (req, res)=> {
+app.post('/newUser',function(req,res){
+ var username = req.body.username;
+ var password = req.body.password;
+ console.log(username + password);
+ //we insert row in user table here
+ res.render("index");
+});
 
-	res.render("aboutStephanie")
-})
-
-app.get("/aboutPablo.html", (req, res)=> {
-
-	res.render("aboutPablo")
-})
-
-app.get("/aboutJohnny.html", (req, res)=> {
-
-	res.render("aboutJohnny")
-})
-
-app.get("/aboutSyed.html", (req, res)=> {
-
-	res.render("aboutSyed")
-})
-
-app.get("/aboutJack.html", (req, res)=> {
-
-	res.render("aboutJack")
-})
-
-app.get("/aboutMarlo.html", (req, res)=> {
-
-	res.render("aboutMarlo")
-})
-
-app.get("/aboutHarry.html", (req, res)=> {
-
-	res.render("aboutHarry")
-})
 
 app.listen(process.env.PORT || 3000, ()=> {
 
