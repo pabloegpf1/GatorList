@@ -15,5 +15,10 @@ router.post("/newUser", (req, res, next)=> {
    console.log('Password: ' + req.body.password);
 })
 
+router.get("/register", (req, res)=> {
+
+   res.render("register")
+})
+
 
 module.exports = router;
