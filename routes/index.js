@@ -1,23 +1,45 @@
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
+
+const Knex = require('knex');
+const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
 router.get("/", (req, res, next)=> {
 
-   res.render("index");
-
-})
-
-router.post("/newUser", (req, res, next)=> {
-
-   res.render("index");
-
-   console.log('Username: ' + req.body.username);
-   console.log('Password: ' + req.body.password);
+   res.render("register");
 })
 
 router.get("/register", (req, res)=> {
 
-   res.render("register")
+   knex('Users')
+   .insert({
+      UserName: req.query.username,
+      Password: req.query.password,
+      firstName: req.query.name,
+      lastName: req.query.lastname
+   }).then(
+   res.redirect('/users')
+   );
+})
+
+router.get("/users", (req, res, next)=> {
+
+   knex('Users')
+   .then(
+      knex.select('UserName', 'firstName', 'Password').from('Users')
+      .then(function(users) {
+         res.render('users',{users: users});
+      }));
+})
+
+router.get("/user-search", (req, res, next)=> {
+   console.log("searching for: "+req.query.search);
+   knex('Users')
+   .then(
+      knex.select('UserName', 'firstName', 'Password').from('Users').where({ UserName: req.query.search })
+      .then(function(users) {
+         res.render('users',{users: users});
+      }));
 })
 
 

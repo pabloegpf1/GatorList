@@ -3,12 +3,13 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Users').then(exists => {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
-          table.uuid('Id').primary();
+          knex.raw('create extension if not exists "uuid-ossp"')
+          table.uuid('Id').defaultTo(knex.raw('uuid_generate_v4()'));
           table.string('UserName').unique();
           table.string('firstName');
           table.string('lastName');
           table.jsonb('Password');
-          table.boolean('Admin');
+          table.boolean('Admin').defaultTo(false);
         })
       }
     }),
@@ -32,6 +33,7 @@ exports.up = function up(knex) {
 };
 
 exports.down = function down(knex) {
+  knex.raw('drop extension if exists "uuid-ossp"');
   return knex.schema
   .dropTableIfExists('Users')
   .dropTableIfExists('Items');
