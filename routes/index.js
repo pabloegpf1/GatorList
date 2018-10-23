@@ -23,7 +23,6 @@ router.get("/register", (req, res)=> {
 })
 
 router.get("/users", (req, res, next)=> {
-
    knex('Users')
    .then(
       knex.select('UserName', 'firstName', 'Password').from('Users')
@@ -32,14 +31,13 @@ router.get("/users", (req, res, next)=> {
       }));
 })
 
-router.get("/user-search", (req, res, next)=> {
-   console.log("searching for: "+req.query.search);
+router.post("/users-search", (req, res, next)=> {
+   console.log("Searching for: "+req.body.search);
    knex('Users')
-   .then(
-      knex.select('UserName', 'firstName', 'Password').from('Users').where({ UserName: req.query.search })
-      .then(function(users) {
-         res.render('users',{users: users});
-      }));
+   .where('UserName', req.body.search)
+   .then(function(users) {
+      res.render('users',{users: users});
+   });
 })
 
 
