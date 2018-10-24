@@ -8,21 +8,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Register</title>
+    <title>Items</title>
 
     <!-- Custom styles for this template -->
     <link href="public/css/round-about.css" rel="stylesheet">
 
    <style>
 
-      .container-users {
+      .container-items {
         margin-top: 30px;
-        width: 800px;
+        width: 75%;
         padding: 30px;
         background: #f7f4f4;
         opacity: 0.97;
         border-radius: 25px;
-        margin: 0 auto;
+        margin-left: 12.5%;
       }
       h1 {
         margin: 0;
@@ -30,6 +30,17 @@
       }
       form-inline mr-auto{
         margin-bottom: 10px;
+        width: 100px;
+      }
+     img{
+        height:100px;
+        width:auto;
+        position: center;
+        max-width:500px;
+      }
+      .search{
+        display: inline-block;
+        margin: 0;
       }
    </style>
 
@@ -56,41 +67,43 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home
+                        <a class="nav-link" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">About Team</a>
+                        <a class="nav-link" href="/about">About Team</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container-users">
-      <h1>Users</h1>
-      <!-- Search form -->
+    <div class="container-items">
+      <h1>Items</h1>
 
-      <button style="float: right;" onclick="location.href = '/';" class="btn btn-primary">Back to HomePage</button>
-      <form action="/users-search" method="post" class="form-inline mr-auto">
-        <input class="form-control mr-sm-2" type="text" name="search" id="search" placeholder="Search" aria-label="Search">
-      </form>
+        <div class="search">
+            <form action="/items-search" method="post" class="form-inline mr-auto">
+            <input class="form-control mr-sm-2" type="text" name="search" id="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
 
        <table class="table table-striped">
         <thead>
         <tr>
-          <th scope="col">username</th>
-          <th scope="col">email</th>
-          <th scope="col">password</th>
+          <th scope="col">Title</th>
+          <th scope="col">User</th>
+          <th scope="col">Category</th>
+          <th scope="col">Image</th>
         </tr>
       </thead>
         <tbody>
-          <% for(let i = 0; i < users.length; i++) { %>
+          <% for(let i = 0; i < items.length; i++) { %>
             <tr>
-              <td><%= users[i].UserName %></td>
-              <td><%= users[i].firstName %></td>
-              <td><%= users[i].Password %></td>
+              <td><%= items[i].Title %></td>
+              <td><%= items[i].userID %></td>
+              <td><%= items[i].Category %></td>
+              <td><img src=<%= items[i].image %> </td>
             </tr>
           <% } %>
         </tbody>

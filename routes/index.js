@@ -4,11 +4,6 @@ const router = express.Router();
 const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
-router.get("/", (req, res, next)=> {
-
-   res.render("register");
-})
-
 router.get("/register", (req, res)=> {
 
    knex('Users')
@@ -22,21 +17,22 @@ router.get("/register", (req, res)=> {
    );
 })
 
-router.get("/users", (req, res, next)=> {
-   knex('Users')
+router.get("/", (req, res, next)=> {
+
+   knex('Items')
    .then(
-      knex.select('UserName', 'firstName', 'Password').from('Users')
-      .then(function(users) {
-         res.render('users',{users: users});
+      knex.select('Title', 'userID', 'Category', 'image').from('Items')
+      .then(function(items) {
+         res.render('items',{items: items});
       }));
 })
 
-router.post("/users-search", (req, res, next)=> {
+router.post("/items-search", (req, res, next)=> {
    console.log("Searching for: "+req.body.search);
-   knex('Users')
-   .where('UserName', req.body.search)
-   .then(function(users) {
-      res.render('users',{users: users});
+   knex('Items')
+   .whereRaw("'Title' = ?",[req.body.search])
+   .then(function(items) {
+      res.render('items',{items: items});
    });
 })
 

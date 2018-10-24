@@ -16,9 +16,10 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Items').then(exists => {
       if(!exists){
         return knex.schema.createTable('Items', table =>{
-          table.uuid('Id').primary();
+          table.uuid('Id').primary().defaultTo(knex.raw('uuid_generate_v4()'));;
           table.string('Title').unique();
           table.string('userID');
+          table.string('image');
           table.string('price');
           table.string('ItemDescription').unique();
           table.string('Category');
