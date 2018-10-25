@@ -28,11 +28,22 @@ router.get("/", (req, res, next)=> {
 })
 
 router.post("/items-search", (req, res, next)=> {
-   console.log("Searching for: "+req.body.search);
+   let string = "%"+req.body.search+"%";
+   console.log("Searching for: " + string);
    knex('Items')
-   .whereRaw("'Title' = ?",[req.body.search])
+   .where('Title', 'ilike', string)
    .then(function(items) {
-      res.render('items',{items: items});
+      if(items.length == 0){
+         console.log("No results");
+         knex('Items')
+         .then(
+            knex.select('Title', 'userID', 'Category', 'image').from('Items')
+            .then(function(items) {
+               res.render('items',{items: items});
+            }));
+      }else{
+         res.render('items',{items: items});
+      }
    });
 })
 
