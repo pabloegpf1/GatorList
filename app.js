@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index2');
 const aboutRouter = require('./routes/about');
 const Knex = require('knex');
-const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'development'])
+const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'production'])
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({

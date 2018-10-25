@@ -23,7 +23,7 @@ exports.up = function up(knex) {
           table.string('ItemDescription').unique();
           table.string('Picture');
           table.string('Category');
-          table.boolean('Status');
+          table.boolean('Status').defaultTo(false);
           table.string('ApproveBy');
 
         })
