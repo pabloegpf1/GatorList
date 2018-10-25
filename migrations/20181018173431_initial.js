@@ -21,7 +21,7 @@ exports.up = function up(knex) {
           table.string('userID');
           table.string('price');
           table.string('ItemDescription').unique();
-          table.string('Picture');
+          table.string('image');
           table.string('Category');
           table.boolean('Status').defaultTo(false);
           table.string('ApproveBy');
