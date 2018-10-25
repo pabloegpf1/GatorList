@@ -4,7 +4,7 @@ exports.up = function up(knex) {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
           //knex.raw('create extension if not exists "uuid-ossp"');
-          table.increments('Id');
+          table.increments('Id').primary();
           table.string('UserName').unique();
           table.string('firstName');
           table.string('lastName');
