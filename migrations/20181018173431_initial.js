@@ -1,5 +1,12 @@
 exports.up = function up(knex) {
   return Promise.all([
+    knex.schema.hasTable('Categories').then(exists => {
+      if(!exists){
+        return knex.schema.createTable('Categories', table =>{
+          table.string('Category').primary();
+        })
+      }
+    }),
     knex.schema.hasTable('Users').then(exists => {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
