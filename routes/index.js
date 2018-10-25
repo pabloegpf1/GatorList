@@ -34,9 +34,16 @@ router.get("/", (req, res, next)=> {
 
 router.post("/items-search", (req, res, next)=> {
    let string = "%"+req.body.search+"%";
-   console.log("Searching for: " + string);
+   var categories;
+   knex("Categories").select('Category').then(function(ret){
+     categories=ret;
+  }).then();
+
+   console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
+
    knex('Items')
    .where('Title', 'ilike', string)
+   .where('Category', req.body.dropdown)
    .then(function(items) {
       if(items.length == 0){
          console.log("No results");
@@ -44,10 +51,10 @@ router.post("/items-search", (req, res, next)=> {
          .then(
             knex.select('Title', 'userID', 'Category', 'image').from('Items')
             .then(function(items) {
-               res.render('items',{items: items});
+               res.render('items',{items: items, categories: categories});
             }));
       }else{
-         res.render('items',{items: items});
+         res.render('items',{items: items, categories: categories});
       }
    });
 })
