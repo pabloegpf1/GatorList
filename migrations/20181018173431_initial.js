@@ -1,6 +1,6 @@
 exports.up = function up(knex) {
-  knex.shema.raw(CREATE EXTENSION pg_trgm);
-  return Promise.all([
+  return knex.raw('create extension if not exists "uuid-ossp"')
+  .then([
     knex.schema.hasTable('Users').then(exists => {
       if(!exists){
         return knex.schema.createTable('Users', table =>{

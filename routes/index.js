@@ -19,12 +19,17 @@ router.get("/register", (req, res)=> {
 
 router.get("/", (req, res, next)=> {
 
-   knex('Items')
-   .then(
-      knex.select('Title', 'userID', 'Category', 'image').from('Items')
-      .then(function(items) {
-         res.render('items',{items: items});
-      }));
+  var categories
+  knex("Categories").select('Category').then(function(ret){
+     categories=ret
+     return knex("Items").select('Title', 'userID', 'Category', 'image')
+  })
+  .then(function(items) {
+   res.render("items",{
+      items: items,
+      categories: categories
+   })
+});
 })
 
 router.post("/items-search", (req, res, next)=> {
