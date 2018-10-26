@@ -4,10 +4,10 @@ const router = express.Router();
 const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
-router.get("/", (req, res, next)=> {
-
-   res.render("register");
-})
+let categories;
+knex("Categories").select('Category').then(function(ret){
+  categories=ret;
+}).then();
 
 router.get("/register", (req, res)=> {
 
@@ -22,23 +22,66 @@ router.get("/register", (req, res)=> {
    );
 })
 
-router.get("/users", (req, res, next)=> {
-   knex('Users')
-   .then(
-      knex.select('UserName', 'firstName', 'Password').from('Users')
-      .then(function(users) {
-         res.render('users',{users: users});
-      }));
+router.get("/", (req, res, next)=> {
+
+   knex("Items")
+   .select('Title', 'userID', 'Category', 'image')
+   .then(function(items) {
+      res.render("items",{
+         items: items,
+         categories: categories
+      })
+   });
+
 })
 
-router.post("/users-search", (req, res, next)=> {
-   console.log("Searching for: "+req.body.search);
-   knex('Users')
-   .where('UserName', req.body.search)
-   .then(function(users) {
-      res.render('users',{users: users});
-   });
+router.get("/items-search", (req, res, next)=> {
+
+   res.redirect("/");
 })
+
+router.post("/items-search", (req, res, next)=> {
+   let string = "%"+req.body.search+"%";
+
+   console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
+
+   if(req.body.dropdown == 'Select One'){
+      knex('Items')
+      .where('Title', 'ilike', string)
+      .then(function(items) {
+         if(items.length == 0){
+            console.log("No results");
+            knex('Items')
+            .then(
+               knex.select('Title', 'userID', 'Category', 'image').from('Items')
+               .then(function(items) {
+                  res.render('items',{items: items, categories: categories});
+               }));
+         }else{
+            res.render('items',{items: items, categories: categories});
+         }
+      });
+   }else{
+      knex('Items')
+      .where('Title', 'ilike', string)
+      .where('Category', req.body.dropdown)
+      .then(function(items) {
+         if(items.length == 0){
+            console.log("No results");
+            knex('Items')
+            .then(
+               knex.select('Title', 'userID', 'Category', 'image').from('Items')
+               .then(function(items) {
+                  res.render('items',{items: items, categories: categories});
+               }));
+         }else{
+            res.render('items',{items: items, categories: categories});
+         }
+      });
+   }
+
+})
+
 
 
 module.exports = router;
