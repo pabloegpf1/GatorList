@@ -86,6 +86,7 @@
             <form action="/items-search" method="post" class="form-inline mr-auto">
             <input class="form-control mr-sm-2" type="text" name="search" id="search" placeholder="Search" aria-label="Search">
                 <select  class="category" name="dropdown">
+                    <option value="All">All</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
                    <option value="<%= categories[i].Category %>"><%= categories[i].Category %></option>
                    <% } %>

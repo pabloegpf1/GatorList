@@ -40,23 +40,41 @@ router.post("/items-search", (req, res, next)=> {
   }).then();
 
    console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
+   if(req.body.dropdown == 'All'){
+      knex('Items')
+      .where('Title', 'ilike', string)
+      .then(function(items) {
+         if(items.length == 0){
+            console.log("No results");
+            knex('Items')
+            .then(
+               knex.select('Title', 'userID', 'Category', 'image').from('Items')
+               .then(function(items) {
+                  res.render('items',{items: items, categories: categories});
+               }));
+         }else{
+            res.render('items',{items: items, categories: categories});
+         }
+      });
+   }else{
+      knex('Items')
+      .where('Title', 'ilike', string)
+      .where('Category', req.body.dropdown)
+      .then(function(items) {
+         if(items.length == 0){
+            console.log("No results");
+            knex('Items')
+            .then(
+               knex.select('Title', 'userID', 'Category', 'image').from('Items')
+               .then(function(items) {
+                  res.render('items',{items: items, categories: categories});
+               }));
+         }else{
+            res.render('items',{items: items, categories: categories});
+         }
+      });
+   }
 
-   knex('Items')
-   .where('Title', 'ilike', string)
-   .where('Category', req.body.dropdown)
-   .then(function(items) {
-      if(items.length == 0){
-         console.log("No results");
-         knex('Items')
-         .then(
-            knex.select('Title', 'userID', 'Category', 'image').from('Items')
-            .then(function(items) {
-               res.render('items',{items: items, categories: categories});
-            }));
-      }else{
-         res.render('items',{items: items, categories: categories});
-      }
-   });
 })
 
 
