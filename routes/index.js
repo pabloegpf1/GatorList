@@ -4,6 +4,11 @@ const router = express.Router();
 const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
+let categories;
+knex("Categories").select('Category').then(function(ret){
+  categories=ret;
+}).then();
+
 router.get("/register", (req, res)=> {
 
    knex('Users')
@@ -19,28 +24,28 @@ router.get("/register", (req, res)=> {
 
 router.get("/", (req, res, next)=> {
 
-  var categories
-  knex("Categories").select('Category').then(function(ret){
-     categories=ret
-     return knex("Items").select('Title', 'userID', 'Category', 'image')
-  })
-  .then(function(items) {
-   res.render("items",{
-      items: items,
-      categories: categories
-   })
-});
+   knex("Items")
+   .select('Title', 'userID', 'Category', 'image')
+   .then(function(items) {
+      res.render("items",{
+         items: items,
+         categories: categories
+      })
+   });
+
+})
+
+router.get("/items-search", (req, res, next)=> {
+
+   res.redirect("/");
 })
 
 router.post("/items-search", (req, res, next)=> {
    let string = "%"+req.body.search+"%";
-   var categories;
-   knex("Categories").select('Category').then(function(ret){
-     categories=ret;
-  }).then();
 
    console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
-   if(req.body.dropdown == 'All'){
+
+   if(req.body.dropdown == 'Select One'){
       knex('Items')
       .where('Title', 'ilike', string)
       .then(function(items) {
@@ -76,6 +81,7 @@ router.post("/items-search", (req, res, next)=> {
    }
 
 })
+
 
 
 module.exports = router;

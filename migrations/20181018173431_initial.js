@@ -1,6 +1,5 @@
 exports.up = function up(knex) {
-  return knex.raw('create extension if not exists "uuid-ossp"')
-  .then([
+  return Promise.all([
     knex.schema.hasTable('Users').then(exists => {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
@@ -14,23 +13,15 @@ exports.up = function up(knex) {
         })
       }
     }),
-    knex.schema.hasTable('Categories').then(exists => {
-      if(!exists){
-        return knex.schema.createTable('Categories', table =>{
-          table.string('Category').primary();
-        })
-      }
-    }),
     knex.schema.hasTable('Items').then(exists => {
       if(!exists){
         return knex.schema.createTable('Items', table =>{
-          table.uuid('Id').primary().defaultTo(knex.raw('uuid_generate_v4()'));;
+          table.uuid('Id').primary();
           table.string('Title').unique();
           table.string('userID');
-          table.string('image');
           table.string('price');
           table.string('ItemDescription').unique();
-          table.string('Category').references('Categories.Category');
+          table.string('Category');
           table.boolean('Status');
           table.string('ApproveBy');
 
@@ -45,6 +36,5 @@ exports.down = function down(knex) {
   knex.raw('drop extension if exists "uuid-ossp"');
   return knex.schema
   .dropTableIfExists('Users')
-  .dropTableIfExists('Categories')
   .dropTableIfExists('Items');
 };

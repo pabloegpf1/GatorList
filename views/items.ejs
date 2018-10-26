@@ -2,129 +2,48 @@
 <html>
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    <!-- Head -->
+    <%- include('partials/head') %>
     <title>Items</title>
-
-    <!-- Custom styles for this template -->
-    <link href="public/css/round-about.css" rel="stylesheet">
-
-   <style>
-
-      .container-items {
-        margin-top: 30px;
-        width: 75%;
-        padding: 30px;
-        background: #f7f4f4;
-        opacity: 0.97;
-        border-radius: 25px;
-        margin-left: 12.5%;
-      }
-      h1 {
-        margin: 0;
-        display: inline-block;
-      }
-      form-inline mr-auto{
-        margin-bottom: 10px;
-        width: 100px;
-      }
-     img{
-        height:100px;
-        width:auto;
-        position: center;
-        max-width:500px;
-      }
-      .search{
-        display: inline-block;
-        margin: 0;
-      }
-   </style>
-
+    <!-- Style for Navigation and Containers-->
+    <%- include('partials/aboutStyle') %>
+    <!-- Img Style-->
+    <%- include('partials/imgStyle') %>
 
 <body>
-
-
     <!-- Header -->
-    <header class="header-center">
-        <div class="container">
-            <center>
-                <p>SFSU-Fulda Software Engineering Project CSC 648-848, Fall 2018. For Demonstration Only</p>
-            </center>
-        </div>
-    </header>
-
-
+    <%- include('partials/header') %>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About Team</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <%- include('partials/navbar') %>
     <div class="container-items">
-      <h1>Items</h1>
-
-        <div class="search">
-            <form action="/items-search" method="post" class="form-inline mr-auto">
-            <input class="form-control mr-sm-2" type="text" name="search" id="search" placeholder="Search" aria-label="Search">
-                <select  class="category" name="dropdown">
-                    <option value="All">All</option>
-                    <% for(let i = 0; i < categories.length; i++) { %>
-                   <option value="<%= categories[i].Category %>"><%= categories[i].Category %></option>
-                   <% } %>
-               </select>
-            </form>
-        </div>
-
-       <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">User</th>
-          <th scope="col">Category</th>
-          <th scope="col">Image</th>
-        </tr>
-      </thead>
-        <tbody>
-          <% for(let i = 0; i < items.length; i++) { %>
-            <tr>
-              <td><%= items[i].Title %></td>
-              <td><%= items[i].userID %></td>
-              <td><%= items[i].Category %></td>
-              <td><img src=<%= items[i].image %> </td>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+        <h1>Items</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < items.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= items[i].Title %>
+                    </td>
+                    <td>
+                        <%= items[i].userID %>
+                    </td>
+                    <td>
+                        <%= items[i].Category %>
+                    </td>
+                    <td><img src=<%= items[i].image %> </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</body>
 
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-        <!-- Popper JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    </body>
-
-    </html>
+</html>
