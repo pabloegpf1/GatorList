@@ -16,13 +16,14 @@
     <%- include('partials/navbar') %>
     <!-- Style for Navigation bar-->
     <%- include('partials/Style') %>
-    <div style="padding-left: 70%">
+
+    <div class="container-form">
+        <h1><center>Login</center></h1> 
+        <div display="inline-block">
         <br>
         <strong><p>New User?</strong><br>
         <a href="/register">Register here</a></p>
     </div>
-    <div class="container-form">
-        <h1><center>Login</center></h1>
         <form action="/user-dashboard" method="get">
             <div class="form-group">
                 <label for="exampleInputEmail1">Username</label>

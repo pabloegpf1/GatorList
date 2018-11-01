@@ -7,6 +7,8 @@
     <title>Register</title>
     <!-- Style for Navigation and Containers-->
     <%- include('partials/Style') %>
+    <!-- Script for reCaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -41,7 +43,21 @@
                 <label for="exampleInputEmail1">Last name</label>
                 <input type="text" class="form-control" name="lastname" placeholder="Enter username">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- Default unchecked -->
+            <div class="custom-control custom-checkbox" align="center">
+                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label class="custom-control-label" for="defaultUnchecked">
+                    I agree to the <u>Terms Of Use.</u>
+                </label>
+            </div>
+            <br>
+            <!-- Widget Captcha form -->
+            <form action="?" method="POST">
+                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV" align="center"></div>
+                <br />
+                <center><button type="submit" class="btn btn-primary">Submit</button></center>
+            </form>
+    </div>
     </div>
     </form>
     </div>
