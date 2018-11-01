@@ -6,7 +6,7 @@ const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'developmen
 
 let categories;
 knex("Categories").select('Category').then(function(ret){
- categories=ret;
+  categories=ret;
 }).then();
 
 
@@ -84,5 +84,6 @@ router.get("/pablo", (req, res,next)=> {
       categories: categories
    })
 })
+
 
 module.exports = router;

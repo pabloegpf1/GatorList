@@ -6,21 +6,59 @@ const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'developmen
 
 let categories;
 knex("Categories").select('Category').then(function(ret){
-  categories=ret;
+ categories=ret;
 }).then();
 
 router.get("/register", (req, res)=> {
 
-   knex('Users')
-   .insert({
-      UserName: req.query.username,
-      Password: req.query.password,
-      firstName: req.query.name,
-      lastName: req.query.lastname
-   }).then(
-   res.redirect('/users')
-   );
+   res.render("register",{
+      categories: categories
+   })
+
+   res.redirect("/login", {
+      categories: categories
+   })
 })
+
+router.get("/post", (req, res)=> {
+
+   res.render("post",{
+      categories: categories
+   })
+})
+
+router.get("/login", (req, res)=> {
+
+   res.render("login",{
+      categories: categories
+   })
+
+   res.redirect("/user-dashboard", {
+      categories: categories
+   })
+})
+
+router.get("/admin-dashboard", (req, res)=> {
+
+   res.render("admin-dashboard",{
+      categories: categories
+   })
+})
+
+router.get("/admin-review", (req, res)=> {
+
+   res.render("admin-review",{
+      categories: categories
+   })
+})
+
+router.get("/user-dashboard", (req, res)=> {
+
+   res.render("user-dashboard",{
+      categories: categories
+   })
+})
+
 
 router.get("/", (req, res, next)=> {
 

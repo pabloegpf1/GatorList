@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const aboutRouter = require('./routes/about');
+
 const Knex = require('knex');
 const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'development'])
 
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
+
 app.use(expressLayouts);
 
 knex.migrate

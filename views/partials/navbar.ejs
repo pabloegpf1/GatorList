@@ -4,15 +4,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Drop Down Menu -->
-        <div class="category">
+            <div class="category">
             <form action="/items-search" method="post">
-               <select class="category" name="dropdown">
-                    <option selected="selected" value="Select One">--Select One--</option>
+                <select class="category" name="dropdown">
+                    <option selected="selected" value="Select One">All Categories</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
-                       <option value="<%= categories[i].Category %>"><%= categories[i].Category %></option>
+                    <option value="<%= categories[i].Category %>">
+                        <%= categories[i].Category %>
+                    </option>
                     <% } %>
                 </select>
-            <!-- Search Bar And Go Button -->
+                <!-- Search Bar And Go Button -->
                 <div class="search">
                     <input type="text" id="text" name="search" placeholder="Search" aria-label="Search" input size="40">
                     <input type="submit" action="/items-search" method="post" class="category" value="Go" tabindex="20" id="submit_button">
@@ -29,6 +31,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/post">Sell</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
                 </li>
             </ul>
         </div>

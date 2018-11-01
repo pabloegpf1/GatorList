@@ -6,10 +6,8 @@
     <%- include('partials/head') %>
     <title>Items</title>
     <!-- Style for Navigation and Containers-->
-    <%- include('partials/aboutStyle') %>
-    <!-- Img Style-->
-    <%- include('partials/imgStyle') %>
-
+    <%- include('partials/Style') %>
+  
 <body>
     <!-- Header -->
     <%- include('partials/header') %>
@@ -17,32 +15,35 @@
     <%- include('partials/navbar') %>
     <div class="container-items">
         <h1>Items</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for(let i = 0; i < items.length; i++) { %>
-                <tr>
-                    <td>
-                        <%= items[i].Title %>
-                    </td>
-                    <td>
-                        <%= items[i].userID %>
-                    </td>
-                    <td>
-                        <%= items[i].Category %>
-                    </td>
-                    <td><img src=<%= items[i].image %> </td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+    <h4 align="right">Total Items: <%= items.length %></h4>
+        <div class="table-responsive-lg">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < items.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= items[i].Title %>
+                        </td>
+                        <td>
+                            <%= items[i].userID %>
+                        </td>
+                        <td>
+                            <%= items[i].Category %>
+                        </td>
+                        <td><img id="items-pic" src=<%= items[i].image %> </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
