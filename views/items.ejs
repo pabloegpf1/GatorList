@@ -51,6 +51,7 @@ hr {
         <h4 align="right">Total Items: <%= items.length %></h4>
         <!-- First Card Column -->
         <% for(let i = 0; i < items.length; i++) { %>
+        <% if(i % 2 == 0) { %>
         <div class="container">
             <div class="card-deck">
                 <div class="row">
@@ -80,6 +81,8 @@ hr {
                             </div>
                         </div>
                     </div>
+                           <% }else { %>
+                      
                     <!-- Second Card Column -->
                     <div class="card auto">
                         <div class="row no-gutters">
@@ -111,6 +114,7 @@ hr {
             </div>
         </div>
         <% } %>
+    <% } %>
 </body>
 
 </html>
