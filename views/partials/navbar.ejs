@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Drop Down Menu -->
+        <div class="category">
+            <form action="/items-search" method="post">
+               <select type="submit" class="category" name="dropdown" onChange = "CategoryState(this)">
+                    <option value="All">--Select One--</option>
+                    <% for(let i = 0; i < categories.length; i++) { %>
+                       <option value="<%= categories[i].Category %>"><%= categories[i].Category %></option>
+                    <% } %>
+                </select>
+            <!-- Search Bar And Go Button -->
+                <div class="search">
+                    <input type="text" id="text" name="search" placeholder="Search" aria-label="Search" input size="40">
+                    <input type="submit" action="/items-search" method="post" class="category" value="Go" tabindex="20" id="submit_button">
+                </div>
+            </form>
+        </div>
+        <!-- Actions for when navbar decreases -->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Team</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

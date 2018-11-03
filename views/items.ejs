@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Head -->
+    <%- include('partials/head') %>
+    <title>Items</title>
+    <!-- Style for Navigation and Containers-->
+    <%- include('partials/aboutStyle') %>
+    <!-- Img Style-->
+    <%- include('partials/imgStyle') %>
+
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- Navigation -->
+    <%- include('partials/navbar') %>
+    <div class="container-items">
+        <h1>Items</h1>
+        <h4>Total Items: <%= items.length %></h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < items.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= items[i].Title %>
+                    </td>
+                    <td>
+                        <%= items[i].userID %>
+                    </td>
+                    <td>
+                        <%= items[i].Category %>
+                    </td>
+                    <td><img src=<%= items[i].image %> </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

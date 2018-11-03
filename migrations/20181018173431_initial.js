@@ -1,5 +1,17 @@
 exports.up = function up(knex) {
   return Promise.all([
+    knex.schema.hasTable('Users').then(exists => {
+      if(!exists){
+        return knex.schema.createTable('Users', table =>{
+          table.increments('ID').unsigned().notNullable().primary();
+          table.string('UserName').unique();
+          table.string('FirstName');
+          table.string('LastName');
+          table.jsonb('Password');
+          table.boolean('Admin').defaultTo(false);
+        })
+      }
+    }),
     knex.schema.hasTable('Categories').then(exists => {
       if(!exists){
         return knex.schema.createTable('Categories', table =>{
@@ -7,32 +19,36 @@ exports.up = function up(knex) {
         })
       }
     }),
-    knex.schema.hasTable('Users').then(exists => {
-      if(!exists){
-        return knex.schema.createTable('Users', table =>{
-          //knex.raw('create extension if not exists "uuid-ossp"');
-          table.increments('Id').primary();
-          table.string('UserName').unique();
-          table.string('firstName');
-          table.string('lastName');
-          table.jsonb('Password');
-          table.boolean('Admin').defaultTo(false);
-        })
-      }
-    }),
     knex.schema.hasTable('Items').then(exists => {
       if(!exists){
         return knex.schema.createTable('Items', table =>{
-          table.increments('Id').primary();
-          table.string('Title').unique();
-          table.string('userID');
-          table.string('price');
-          table.string('ItemDescription').unique();
-          table.string('image');
-          table.string('Category');
-          table.boolean('Status').defaultTo(false);
-          table.string('ApproveBy');
-
+          table.increments('ID').primary();
+          table.string('Title');
+          table.integer('UserID').unsigned().notNullable().references('UserName').inTable('Users');
+          table.string('Price');
+          table.text('Description');
+          table.string('Category').references('Category').inTable('Categories');
+          table.boolean('Status');
+          table.string('Image');
+          table.integer('ApprovedBy').references('UserName').inTable('Users');
+        })
+      }
+    }),
+    knex.schema.hasTable('Messages').then(exists => {
+      if(!exists){
+        return knex.schema.createTable('Messages', table =>{
+          table.integer('User_from').unique().references('UserName').inTable('Users');
+          table.integer('User_to').unique().references('UserName').inTable('Users');
+          table.integer('ItemID').unique().references('Title').inTable('Items');
+          table.text('Content').unique();
+        })
+      }
+    }),
+    knex.schema.hasTable('Favorites').then(exists => {
+      if(!exists){
+        return knex.schema.createTable('Favorites', table =>{
+          table.integer('UserID').unique().references('UserID').inTable('Users');
+          table.integer('ItemID').unique().references('Title').inTable('Items');
         })
       }
     })
@@ -41,8 +57,10 @@ exports.up = function up(knex) {
 };
 
 exports.down = function down(knex) {
-  knex.raw('drop extension if exists "uuid-ossp"');
   return knex.schema
+  .dropTableIfExists('Favorites')
+  .dropTableIfExists('Messages')
+  .dropTableIfExists('Items')
+  .dropTableIfExists('Categories')
   .dropTableIfExists('Users')
-  .dropTableIfExists('Items');
 };
