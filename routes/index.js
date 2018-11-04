@@ -63,7 +63,7 @@ router.get("/user-dashboard", (req, res)=> {
 router.get("/", (req, res, next)=> {
 
    knex("Items")
-   .select('Title', 'userID', 'Category', 'image')
+   .select('Title', 'UserID', 'Category', 'Image')
    .then(function(items) {
       res.render("items",{
          items: items,
@@ -91,7 +91,7 @@ router.post("/items-search", (req, res, next)=> {
             console.log("No results");
             knex('Items')
             .then(
-               knex.select('Title', 'userID', 'Category', 'image').from('Items')
+               knex.select('Title', 'UserID', 'Category', 'Image').from('Items')
                .then(function(items) {
                   res.render('items',{items: items, categories: categories});
                }));
@@ -108,7 +108,7 @@ router.post("/items-search", (req, res, next)=> {
             console.log("No results");
             knex('Items')
             .then(
-               knex.select('Title', 'userID', 'Category', 'image').from('Items')
+               knex.select('Title', 'UserID', 'Category', 'Image').from('Items')
                .then(function(items) {
                   res.render('items',{items: items, categories: categories});
                }));
