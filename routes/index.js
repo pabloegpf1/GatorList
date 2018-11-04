@@ -5,6 +5,8 @@ const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
 let categories;
+global.holdSearch = "Search";
+
 knex("Categories").select('Category').then(function(ret){
  categories=ret;
 }).then();
@@ -80,7 +82,10 @@ router.get("/items-search", (req, res, next)=> {
 
 router.post("/items-search", (req, res, next)=> {
    let string = "%"+req.body.search+"%";
+   
+   global.holdSearch = req.body.search;
 
+   console.log("testing hold search: " + holdSearch)
    console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
 
    if(req.body.dropdown == 'Select One'){
