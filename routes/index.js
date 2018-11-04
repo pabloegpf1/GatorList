@@ -5,7 +5,7 @@ const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
 let categories;
-global.holdSearch = "Search";
+global.holdSearch = "";
 
 knex("Categories").select('Category').then(function(ret){
  categories=ret;
