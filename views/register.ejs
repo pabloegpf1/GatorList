@@ -8,7 +8,6 @@
     <!-- Style for Navigation and Containers-->
     <%- include('partials/Style') %>
     <!-- Script for reCaptcha -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -52,11 +51,30 @@
             </div>
             <br>
             <!-- Widget Captcha form -->
-            <form action="?" method="POST">
-                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV" align="center"></div>
-                <br />
-                <center><button type="submit" class="btn btn-primary">Submit</button></center>
+            <form method="POST" onsubmit="return submitUserForm();">
+                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV" align="center" data-callback="verifyCaptcha"></div>
+                <div id="g-recaptcha-error"></div>
+                <center><button type="submit" name="submit" value="Submit" class="btn btn-primary">Submit</button></center>
             </form>
+            <!-- Script for reCaptcha -->
+            <script src="https://www.google.com/recaptcha/api.js"></script>
+            <!-- Script to Verify with Google for Captcha -->
+            <script>
+            function submitUserForm() {
+                var response = grecaptcha.getResponse();
+                console.log(response.length);
+                if (response.length == 0) {
+                    document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">This field is required.</span>';
+                    return false;
+                }
+                return true;
+            }
+
+            function verifyCaptcha() {
+                console.log('verified');
+                document.getElementById('g-recaptcha-error').innerHTML = '';
+            }
+            </script>
     </div>
     </div>
     </form>
