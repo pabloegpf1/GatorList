@@ -5,8 +5,8 @@
         </button>
         <!-- Drop Down Menu -->
             <div class="category">
-            <form action="/items-search" method="post">
-                <select class="category" name="dropdown">
+            <form action="/items-search" method="post" class="form-inline">
+                <select class="form-control form-control-sm" name="dropdown">
                     <option selected="selected" value="Select One">All Categories</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
                     <option value="<%= categories[i].Category %>">
