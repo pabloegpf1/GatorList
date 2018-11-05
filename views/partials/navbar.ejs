@@ -4,17 +4,22 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- Drop Down Menu -->
+
+        <!-- Drop Down Category Menu -->
         <div class="category">
             <form action="/items-search" method="post" class="form-inline my-2 my-lg-0">
                 <select class="form-control ml-sm-0" name="dropdown">
                     <option selected="selected" value="Select One">All Categories</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
-                    <option value="<%= categories[i].Category %>">
+                    <option value="<%= categories[i].Category %>" 
+                        <%if (categories[i].Category == holdCategory) { %>
+                            selected="selected"
+                        <% } %> >
                         <%= categories[i].Category %>
                     </option>
                     <% } %>
                 </select>
+
                 <!-- Search Bar And Go Button -->
                 <div class="search">
                     <input type="text" id="text" name="search" placeholder="Search" aria-label="Search" input size="30" class="form-control ml-sm-1" value=<%=holdSearch %> >
