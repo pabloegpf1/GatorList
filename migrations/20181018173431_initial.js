@@ -12,6 +12,7 @@ exports.up = function up(knex) {
         })
       }
     }),
+
     knex.schema.hasTable('Categories').then(exists => {
       if(!exists){
         return knex.schema.createTable('Categories', table =>{
@@ -19,6 +20,7 @@ exports.up = function up(knex) {
         })
       }
     }),
+
     knex.schema.hasTable('Items').then(exists => {
       if(!exists){
         return knex.schema.createTable('Items', table =>{

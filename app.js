@@ -11,7 +11,9 @@ var expressLayouts = require('express-ejs-layouts');
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
+
  extended: true
+
 }));
 app.use(bodyParser.json());
 app.use('/', indexRouter);
@@ -23,6 +25,8 @@ knex.migrate
 .latest()
 .then(() =>
   app.listen(process.env.PORT || 5000, () =>
-   console.log(`Running on port ${process.env.PORT || 5000}!`)
-   )
+
+    console.log(`Running on port ${process.env.PORT || 5000}!`)
+    )
   );
+

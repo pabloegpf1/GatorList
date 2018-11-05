@@ -5,8 +5,8 @@
         </button>
         <!-- Drop Down Menu -->
             <div class="category">
-            <form action="/items-search" method="post">
-                <select class="category" name="dropdown">
+            <form action="/items-search" method="post" class="form-inline">
+                <select class="form-control form-control-sm" name="dropdown">
                     <option selected="selected" value="Select One">All Categories</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
                     <option value="<%= categories[i].Category %>">
@@ -16,7 +16,7 @@
                 </select>
                 <!-- Search Bar And Go Button -->
                 <div class="search">
-                    <input type="text" id="text" name="search" placeholder="Search" aria-label="Search" input size="40">
+                    <input type="text" id="text" name="search" placeholder="Search" aria-label="Search" input size="40" value=<%= holdSearch %> >
                     <input type="submit" action="/items-search" method="post" class="category" value="Go" tabindex="20" id="submit_button">
                 </div>
             </form>
