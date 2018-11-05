@@ -32,11 +32,11 @@ app.post('/register', function(req, res) {
     const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
 
     //verify URL
-    const verifyUrl = `https://google.com/recpatcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
 
     //make request to VerifyUrl
     request(verifyUrl, (err, response, body) => {
-        body = json.parse(body);
+        body = JSON.parse(body);
 
         //If Not successful
         if (body.success !== undefined && !body.success) {

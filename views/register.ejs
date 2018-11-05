@@ -22,27 +22,27 @@
         <form action="/register" method="post" id="register-form">
             <div class="form-group">
                 <label for="exampleInputEmail1">Username</label>
-                <input type="text" class="form-control" name="username" placeholder="Enter username">
+                <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Email</label>
-                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Enter password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Repeat password</label>
-                <input type="password" class="form-control" name="password2" placeholder="Enter password">
+                <input type="password" class="form-control" name="password2" id="password2" placeholder="Enter password">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">First name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter username">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Last name</label>
-                <input type="text" class="form-control" name="lastname" placeholder="Enter username">
+                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter username">
             </div>
             <!-- Default unchecked -->
             <div class="form-group custom-checkbox" align="center">
@@ -63,11 +63,11 @@
     function submitForm(e) {
         e.preventDefault();
 
-       // const username = document.querySelector('#username').value;
-        //const email = document.querySelector('#email').value;
-       // const password = document.querySelector('#password').value;
-       // const name = document.querySelector('#name').value;
-       // const lastname = document.querySelector('#lastname').value;
+        const username = document.querySelector('#username').value;
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        const name = document.querySelector('#name').value;
+        const lastname = document.querySelector('#lastname').value;
         const captcha = document.querySelector('#g-recaptcha-response').value;
 
         fetch('/register', {
@@ -76,8 +76,14 @@
                     'Accept': 'application/json, text/plain, */*',
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify({ //username: username, email: email, password: password, name: name, lastname: lastname, 
-                captcha: captcha })
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password,
+                    name: name,
+                    lastname: lastname,
+                    captcha: captcha
+                })
             })
 
             .then((res) => res.json())
