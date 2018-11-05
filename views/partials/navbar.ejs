@@ -5,8 +5,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Drop Down Menu -->
-        <form class="form-inline my-2 my-lg-0">
-            <form action="/items-search" method="post">
+        <div class="category">
+            <form action="/items-search" method="post" class="form-inline my-2 my-lg-0">
                 <select class="form-control ml-sm-0" name="dropdown">
                     <option selected="selected" value="Select One">All Categories</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
@@ -22,7 +22,7 @@
                            <input type="submit" action="/items-search" method="post" class="btn btn-success my-2 my-sm-0" value="Go">
    </span>
                 </div>
-            </form>
+        </div>
         </form>
         <!-- Actions for when navbar decreases -->
         <div class="collapse navbar-collapse" id="navbarResponsive">
