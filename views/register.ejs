@@ -8,6 +8,8 @@
     <!-- Style for Navigation and Containers-->
     <%- include('partials/Style') %>
     <!-- Script for reCaptcha -->
+    <!-- Script for reCaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -17,68 +19,81 @@
     <%- include('partials/navbar') %>
     <div class="container-form">
         <h1><center>Registration</center></h1>
-        <form action="/login" method="get">
+        <form action="/register" method="post" id="register-form">
             <div class="form-group">
                 <label for="exampleInputEmail1">Username</label>
-                <input type="text" class="form-control" name="username" placeholder="Enter username">
+                <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Email</label>
-                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Enter password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Repeat password</label>
-                <input type="password" class="form-control" name="password2" placeholder="Enter password">
+                <input type="password" class="form-control" name="password2" id="password2" placeholder="Enter password">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">First name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter username">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Last name</label>
-                <input type="text" class="form-control" name="lastname" placeholder="Enter username">
+                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter username">
             </div>
             <!-- Default unchecked -->
-            <div class="custom-control custom-checkbox" align="center">
+            <div class="form-group custom-checkbox" align="center">
                 <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
                 <label class="custom-control-label" for="defaultUnchecked">
                     I agree to the <u>Terms Of Use.</u>
                 </label>
             </div>
-            <br>
-            <!-- Widget Captcha form -->
-            <form method="POST" onsubmit="return submitUserForm();">
-                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV" align="center" data-callback="verifyCaptcha"></div>
-                <div id="g-recaptcha-error"></div>
-                <center><button type="submit" name="submit" value="Submit" class="btn btn-primary">Submit</button></center>
-            </form>
-            <!-- Script for reCaptcha -->
-            <script src="https://www.google.com/recaptcha/api.js"></script>
-            <!-- Script to Verify with Google for Captcha -->
-            <script>
-            function submitUserForm() {
-                var response = grecaptcha.getResponse();
-                console.log(response.length);
-                if (response.length == 0) {
-                    document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">This field is required.</span>';
-                    return false;
-                }
-                return true;
-            }
+            <div clas="form-group" align="center">
+                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV"></div>
+                <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+    <!-- Script to Verify with Google for Captcha -->
+    <script>
+    document.getElementById('register-form').addEventListener('submit', submitForm);
 
-            function verifyCaptcha() {
-                console.log('verified');
-                document.getElementById('g-recaptcha-error').innerHTML = '';
-            }
-            </script>
-    </div>
-    </div>
-    </form>
-    </div>
+    function submitForm(e) {
+        e.preventDefault();
+
+        const username = document.querySelector('#username').value;
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        const name = document.querySelector('#name').value;
+        const lastname = document.querySelector('#lastname').value;
+        const captcha = document.querySelector('#g-recaptcha-response').value;
+
+        fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password,
+                    name: name,
+                    lastname: lastname,
+                    captcha: captcha
+                })
+            })
+
+            .then((res) => res.json())
+            .then((data) => {
+                //we can use this for what we want to do with the data
+                console.log(data);
+                //alert(data.msg);
+            });
+    }
+    </script>
 </body>
 
 </html>
