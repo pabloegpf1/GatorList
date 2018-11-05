@@ -5,7 +5,10 @@ const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
 let categories;
+
+// global temp variables to hold user's search query and chosen category. may be used throughout all js and ejs files
 global.holdSearch = "";
+global.holdCategory = "All Categories"; 
 
 knex("Categories").select('Category').then(function(ret){
   categories=ret;
@@ -84,8 +87,8 @@ router.post("/items-search", (req, res, next)=> {
    let string = "%"+req.body.search+"%";
 
    global.holdSearch = req.body.search;
+   global.holdCategory = req.body.dropdown;
 
-   console.log("testing hold search: " + holdSearch)
    console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
 
    if(req.body.dropdown == 'Select One'){
