@@ -4,47 +4,112 @@
 <head>
     <!-- Head -->
     <%- include('partials/head') %>
-    <title>Items</title>
+    <title>Home</title>
     <!-- Style for Navigation and Containers-->
-    <%- include('partials/aboutStyle') %>
-    <!-- Img Style-->
-    <%- include('partials/imgStyle') %>
+    <%- include('partials/Style') %>
+    <!-- Style for Card container-->
+
+    <style>
+        body {
+    background-color: #FFFFFF;
+}
+.card {
+    border-radius: 0;
+    margin: 10px auto;
+}
+.card-title {
+    text-transform: uppercase;
+    color: #E44424;
+}
+.card-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+</style>
 
 <body>
     <!-- Header -->
     <%- include('partials/header') %>
     <!-- Navigation -->
     <%- include('partials/navbar') %>
+    <!-- Card container for post -->
     <div class="container-items">
-        <h1>Items</h1>
-        <h4>Total Items: <%= items.length %></h4>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for(let i = 0; i < items.length; i++) { %>
-                <tr>
-                    <td>
-                        <%= items[i].Title %>
-                    </td>
-                    <td>
-                        <%= items[i].userID %>
-                    </td>
-                    <td>
-                        <%= items[i].Category %>
-                    </td>
-                    <td><img src=<%= items[i].image %> </td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
+        <h1>Recent Posts</h1>
+        <h4 align="right">Total Items: <%= items.length %></h4>
+        <!-- First Card Column -->
+        <% for(let i = 0; i < items.length; i++) { %>
+        <% if(i % 2 == 0) { %>
+        <div class="container">
+            <div class="card-deck">
+                <div class="row">
+                    <div class="card auto">
+                        <div class="row no-gutters">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="card-title"><%= items[i].Title %></h5>
+                                    <img class="w-100" id="items-pic" src=<%= items[i].Image %>
+                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>Description: </strong><br>
+                                            <!--<%= items[i].description %>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer w-100 text-muted">
+                                <p><strong>Price: </strong><br>
+                                    <!--<%= items[i].price %>-->
+                                    <strong>Seller: </strong>
+                                    <%= items[i].UserID %>
+                                    <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                           <% }else { %>
+
+                    <!-- Second Card Column -->
+                    <div class="card auto">
+                        <div class="row no-gutters">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="card-title"><%= items[i].Title %></h5>
+                                    <img class="w-100" id="items-pic" src=<%= items[i].Image %>
+                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>Description: </strong><br>
+                                            <!--<%= items[i].description %>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer w-100 text-muted">
+                                <p><strong>Price: </strong><br>
+                                    <!--<%= items[i].price %>-->
+                                    <strong>Seller: </strong>
+                                    <%= items[i].UserID %>
+                                    <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    <% } %>
 </body>
 
 </html>

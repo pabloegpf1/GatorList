@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Knex = require('knex');
-const knex = Knex(require('../knexfile') [process.env.NODE_ENV || 'development'])
+const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
 router.get("/", (req, res, next)=> {
 
@@ -10,6 +10,7 @@ router.get("/", (req, res, next)=> {
 })
 
 router.get("/register", (req, res)=> {
+
    knex('Users')
    .insert({
       UserName: req.query.username,
