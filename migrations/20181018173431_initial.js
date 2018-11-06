@@ -26,22 +26,22 @@ exports.up = function up(knex) {
         return knex.schema.createTable('Items', table =>{
           table.increments('ID').primary();
           table.string('Title');
-          table.integer('UserID').unsigned().notNullable().references('ID').inTable('Users');
+          table.integer('UserID').unsigned().notNullable().references('UserName').inTable('Users');
           table.string('Price');
           table.text('Description');
           table.string('Category').references('Category').inTable('Categories').onDelete('CASCADE');
           table.boolean('Status');
           table.string('Image');
-          table.integer('ApprovedBy').references('ID').inTable('Users');
+          table.integer('ApprovedBy').references('UserName').inTable('Users');
         })
       }
     }),
     knex.schema.hasTable('Messages').then(exists => {
       if(!exists){
         return knex.schema.createTable('Messages', table =>{
-          table.integer('User_from').unique().references('ID').inTable('Users');
-          table.integer('User_to').unique().references('ID').inTable('Users');
-          table.integer('ItemID').unique().references('ID').inTable('Items');
+          table.integer('User_from').unique().references('UserName').inTable('Users');
+          table.integer('User_to').unique().references('UserName').inTable('Users');
+          table.integer('ItemID').unique().references('Title').inTable('Items');
           table.text('Content').unique();
         })
       }
@@ -49,8 +49,8 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Favorites').then(exists => {
       if(!exists){
         return knex.schema.createTable('Favorites', table =>{
-          table.integer('UserID').unique().references('ID').inTable('Users');
-          table.integer('ItemID').unique().references('ID').inTable('Items');
+          table.integer('UserID').unique().references('UserName').inTable('Users');
+          table.integer('ItemID').unique().references('Title').inTable('Items');
         })
       }
     })
