@@ -94,13 +94,14 @@ router.post("/items-search", (req, res, next)=> {
 
    if(req.body.dropdown == 'Select One'){
       knex('Items')
+      .join('Users', 'Items.UserID', '=', 'Users.ID')
       .where('Title', 'ilike', string)
       .then(function(items) {
          if(items.length == 0){
             console.log("No results");
             knex('Items')
             .then(
-               knex.select('Title', 'UserID', 'Category', 'Image','Description','Price').from('Items')
+               knex.select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
                .then(function(items) {
                   res.render('items',{items: items, categories: categories});
                }));
@@ -110,6 +111,7 @@ router.post("/items-search", (req, res, next)=> {
       });
    }else{
       knex('Items')
+      .join('Users', 'Items.UserID', '=', 'Users.ID')
       .where('Title', 'ilike', string)
       .where('Category', req.body.dropdown)
       .then(function(items) {
@@ -117,7 +119,7 @@ router.post("/items-search", (req, res, next)=> {
             console.log("No results");
             knex('Items')
             .then(
-               knex.select('Title', 'UserID', 'Category', 'Image', 'Description','Price').from('Items')
+               knex.select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
                .then(function(items) {
                   res.render('items',{items: items, categories: categories});
                }));
