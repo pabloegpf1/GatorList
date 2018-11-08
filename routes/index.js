@@ -8,10 +8,10 @@ let categories;
 
 // global temp variables to hold user's search query and chosen category. may be used throughout all js and ejs files
 global.holdSearch = "";
-global.holdCategory = "All Categories"; 
+global.holdCategory = "All Categories";
 
 knex("Categories").select('Category').then(function(ret){
-  categories=ret;
+ categories=ret;
 }).then();
 
 router.get("/register", (req, res)=> {
@@ -68,7 +68,8 @@ router.get("/user-dashboard", (req, res)=> {
 router.get("/", (req, res, next)=> {
 
    knex("Items")
-   .select('Title', 'UserID', 'Category', 'Image')
+   .join('Users', 'Items.UserID', '=', 'Users.ID')
+   .select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
    .then(function(items) {
       res.render("items",{
          items: items,
@@ -99,7 +100,7 @@ router.post("/items-search", (req, res, next)=> {
             console.log("No results");
             knex('Items')
             .then(
-               knex.select('Title', 'UserID', 'Category', 'Image').from('Items')
+               knex.select('Title', 'UserID', 'Category', 'Image','Description','Price').from('Items')
                .then(function(items) {
                   res.render('items',{items: items, categories: categories});
                }));
@@ -116,7 +117,7 @@ router.post("/items-search", (req, res, next)=> {
             console.log("No results");
             knex('Items')
             .then(
-               knex.select('Title', 'UserID', 'Category', 'Image').from('Items')
+               knex.select('Title', 'UserID', 'Category', 'Image', 'Description','Price').from('Items')
                .then(function(items) {
                   res.render('items',{items: items, categories: categories});
                }));
