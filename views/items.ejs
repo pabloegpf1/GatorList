@@ -10,16 +10,14 @@
     <!-- Style for Card container-->
 
     <style>
-        body {
-    background-color: #FFFFFF;
-}
+
 .card {
-    border-radius: 0;
+    border-radius: 30;
     margin: 10px auto;
 }
 .card-title {
+    padding: 10px;
     text-transform: uppercase;
-    color: #E44424;
 }
 .card-text {
     margin-top: 10px;
@@ -62,15 +60,13 @@ hr {
                                     <div class="card-body">
                                         <p class="card-text">
                                             <strong>Description: </strong><br>
-                                            <!--<%= items[i].description %>-->
+                                            <div id="description"><%= items[i].Description %></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: </strong><br>
-                                    <!--<%= items[i].price %>-->
-                                    <strong>Seller: </strong>
-                                    <%= items[i].UserID %>
+                                <p><strong>Price: $<%= items[i].Price %></strong><br>
+                                    <strong>Seller: <%= items[i].UserName %></strong>
                                     <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
@@ -91,15 +87,13 @@ hr {
                                     <div class="card-body">
                                         <p class="card-text">
                                             <strong>Description: </strong><br>
-                                            <!--<%= items[i].description %>-->
+                                            <div id="description"><%= items[i].Description %></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: </strong><br>
-                                    <!--<%= items[i].price %>-->
-                                    <strong>Seller: </strong>
-                                    <%= items[i].UserID %>
+                                <p><strong>Price: $<%= items[i].Price %></strong><br>
+                                    <strong>Seller: <%= items[i].UserName %></strong>
                                     <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
