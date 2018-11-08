@@ -5,17 +5,70 @@
     <!-- Head -->
     <%- include('partials/head') %>
     <title>
-       Posts to Review
-    </title>
+       Admin Post Review
+   </title>
 </head>
-
+<style>
+.btn-primary {
+    margin: 80px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+</style>
 <body>
     <!-- Header -->
     <%- include('partials/header') %>
     <!-- Navigation -->
-    <%- include('partials/navbar') %>
+    <%- include('partials/admin-navbar') %>
     <!-- Style for Navigation bar-->
     <%- include('partials/Style') %>
+    <div class="container-items text-center">
+        <h2>Post to Review:</h2>
+        <div class="container">
+          <div class="row">
+            <div class="col text-center">
+              <h5>Item Image:</h5>
+              <img src="http://res.freestockphotos.biz/pictures/9/9530-a-wooden-chair-isolated-on-a-white-background-pv.jpg" class="img-thumbnail" alt="chair" width="300">
+          </div>
+          <div class="col text-left">
+            <form>
+                <h5>Item Name:</h5>
+                <div class="card" style="width: 40rem;">
+                  <div class="card-body">
+                   <p class="card-text">Wooden Chair</p>
+                </div>
+            </div>
+            <h5>Description:</h5>
+            <div class="card" style="width: 40rem;">
+                  <div class="card-body">
+                   <p class="card-text">It's a chair made of wood. Great for sitting. You can also stand on the chair to reach high places. Be careful of splinters though.</p>
+                </div>
+            </div>
+            <h5>Price:</h5>
+            <div class="card" style="width: 40rem;">
+                  <div class="card-body">
+                   <p class="card-text">$4.99</p>
+                </div>
+            </div>
+            <h5>Catergory:</h5>
+            <div class="card" style="width: 40rem;">
+                  <div class="card-body">
+                   <p class="card-text">Furniture</p>
+                </div>
+            </div>
+            <h5>Seller:</h5>
+            <div class="card" style="width: 40rem;">
+                  <div class="card-body">
+                   <p class="card-text">Bob Bobberson</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<a href="#" class="btn btn-primary">Accept Post</a>
+<a href="#" class="btn btn-primary">Deny Post</a>
+</div>
 </body>
 
 </html>
