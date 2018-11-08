@@ -8,10 +8,10 @@ let categories;
 
 // global temp variables to hold user's search query and chosen category. may be used throughout all js and ejs files
 global.holdSearch = "";
-global.holdCategory = "All Categories"; 
+global.holdCategory = "All Categories";
 
 knex("Categories").select('Category').then(function(ret){
-  categories=ret;
+ categories=ret;
 }).then();
 
 router.get("/register", (req, res)=> {
@@ -42,28 +42,6 @@ router.get("/login", (req, res)=> {
       categories: categories
    })
 })
-
-router.get("/admin-dashboard", (req, res)=> {
-
-   res.render("admin-dashboard",{
-      categories: categories
-   })
-})
-
-router.get("/admin-review", (req, res)=> {
-
-   res.render("admin-review",{
-      categories: categories
-   })
-})
-
-router.get("/user-dashboard", (req, res)=> {
-
-   res.render("user-dashboard",{
-      categories: categories
-   })
-})
-
 
 router.get("/", (req, res, next)=> {
 
