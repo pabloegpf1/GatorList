@@ -70,6 +70,20 @@ router.post("/register", (req, res, next)=> {
    .then(   res.redirect("/"));
 })
 
+router.post("/post", (req, res, next)=> {
+
+   return knex('Items')
+   .insert(
+   {
+      UserID: 1,
+      Title: req.body.name,
+      Price: req.body.price,
+      Description: req.body.descrition,
+      Category: req.body.category
+   })
+   .then(   res.redirect("/"));
+})
+
 router.post("/items-search", (req, res, next)=> {
    let string = "%"+req.body.search+"%";
 

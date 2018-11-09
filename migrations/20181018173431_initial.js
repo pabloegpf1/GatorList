@@ -33,6 +33,7 @@ exports.up = function up(knex) {
           table.boolean('Status');
           table.string('Image');
           table.integer('ApprovedBy').references('ID').inTable('Users');
+          table.timestamp('created_at').defaultTo(knex.fn.now());
         })
       }
     }),
