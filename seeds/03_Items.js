@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
     return knex('Items').insert([
     {
       Title: 'Databases book',
-      UserID: 1,
+      UserID: 5,
       Category: 'Books',
       Price: 12,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
@@ -14,7 +14,7 @@ exports.seed = function(knex, Promise) {
     },
     {
       Title: 'Batteries',
-      UserID: 1,
+      UserID: 3,
       Price: 3,
       Category: 'Electronics',
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
     },
     {
       Title: 'TV',
-      UserID: 1,
+      UserID: 4,
       Category: 'Electronics',
       Price: 150,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
@@ -38,7 +38,7 @@ exports.seed = function(knex, Promise) {
     },
     {
       Title: 'Physics book',
-      UserID: 1,
+      UserID: 6,
       Category: 'Books',
       Price: 20,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
@@ -46,7 +46,7 @@ exports.seed = function(knex, Promise) {
     },
     {
       Title: 'Calculus book',
-      UserID: 1,
+      UserID: 7,
       Category: 'Books',
       Price: 10,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
@@ -54,7 +54,7 @@ exports.seed = function(knex, Promise) {
     },
     {
       Title: 'Table',
-      UserID: 1,
+      UserID: 2,
       Category: 'Home',
       Price: 25,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
@@ -62,7 +62,7 @@ exports.seed = function(knex, Promise) {
     },
     {
       Title: 'Laptop',
-      UserID: 1,
+      UserID: 3,
       Price: 125,
       Category: 'Electronics',
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
