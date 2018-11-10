@@ -8,8 +8,28 @@
     <!-- Style for Navigation and Containers-->
     <%- include('partials/Style') %>
     <!-- Style for Card container-->
-
     <style>
+#items-pic {
+   height: 150px;
+   width: 250px;
+   position: center;
+   max-width: 100%;
+   max-length: 100%;
+   object-fit: contain;
+}
+
+#description{
+    height: 150px;
+    overflow: scroll;
+}
+
+.container-items {
+    width: 85%;
+    padding: 30px;
+    opacity: 0.97;
+    border-radius: 25px;
+    margin-left: 7.5%;
+}
 
 .card {
     border-radius: 30;
@@ -60,20 +80,22 @@ hr {
                                     <div class="card-body">
                                         <p class="card-text">
                                             <strong>Description: </strong><br>
-                                            <div id="description"><%= items[i].Description %></div>
+                                            <div id="description">
+                                                <%= items[i].Description %>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer w-100 text-muted">
                                 <p><strong>Price: $<%= items[i].Price %></strong><br>
-                                    <strong>Seller: <%= items[i].UserName %></strong>
+                                    <strong>Seller: <%= items[i].UserName %></strong><br>
+                                    <strong>Date Added: <%= items[i].created_At %></strong>
                                     <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
                         </div>
                     </div>
-                           <% }else { %>
-
+                    <% }else { %>
                     <!-- Second Card Column -->
                     <div class="card auto">
                         <div class="row no-gutters">
@@ -87,13 +109,16 @@ hr {
                                     <div class="card-body">
                                         <p class="card-text">
                                             <strong>Description: </strong><br>
-                                            <div id="description"><%= items[i].Description %></div>
+                                            <div id="description">
+                                                <%= items[i].Description %>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer w-100 text-muted">
                                 <p><strong>Price: $<%= items[i].Price %></strong><br>
-                                    <strong>Seller: <%= items[i].UserName %></strong>
+                                    <strong>Seller: <%= items[i].UserName %></strong><br>
+                                    <strong>Date Added: <%= items[i].created_At %></strong>
                                     <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
@@ -103,7 +128,7 @@ hr {
             </div>
         </div>
         <% } %>
-    <% } %>
+        <% } %>
 </body>
 
 </html>
