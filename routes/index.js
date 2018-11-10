@@ -30,10 +30,6 @@ router.get("/login", (req, res)=> {
    res.render("login",{
       categories: categories
    })
-
-   res.redirect("/user-dashboard", {
-      categories: categories
-   })
 })
 
 router.get("/admin-dashboard", (req, res)=> {
