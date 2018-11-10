@@ -16,10 +16,6 @@ router.get("/register", (req, res)=> {
    res.render("register",{
       categories: categories
    })
-
-   res.redirect("/login", {
-      categories: categories
-   })
 })
 
 router.get("/post", (req, res)=> {
