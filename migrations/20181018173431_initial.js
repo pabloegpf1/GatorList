@@ -3,7 +3,7 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Users').then(exists => {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
-          table.increments('ID').unsigned().notNullable().primary();
+          table.increments('ID');
           table.string('UserName').unique();
           table.string('FirstName');
           table.string('LastName');
@@ -33,6 +33,7 @@ exports.up = function up(knex) {
           table.boolean('Status');
           table.string('Image');
           table.integer('ApprovedBy').references('ID').inTable('Users');
+          table.timestamp('created_at').defaultTo(knex.fn.now());
         })
       }
     }),

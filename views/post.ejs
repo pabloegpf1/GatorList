@@ -21,22 +21,22 @@
 <div class="container-form">
 
 <h1><center>Sell</center></h1>
-<form>
+<form action="/post" method="post" id="register-form">
   <div class="post-form">
     <label for="itemname">Item Name</label>
-    <input type="text" class="form-control" id="itemname" placeholder="Enter item name">
+    <input type="text" class="form-control" name="name" placeholder="Enter item name">
   </div>
   <div class="post-form">
     <label for="Description">Description</label>
-    <textarea class="form-control" id="Description" rows="3" placeholder="Enter Item Description"></textarea>
+    <textarea class="form-control" name="descrition" rows="3" placeholder="Enter Item Description"></textarea>
   </div>
   <div class="post-form">
     <label for="Price">Price</label>
-    <input type="text" class="form-control" id="Price" placeholder="Enter a price">
+    <input type="text" class="form-control" name="price" placeholder="Enter a price">
   </div>
   <div class="post-form">
     <label for="Categories">Category</label>
-    <select class="form-control ml-sm-0" name="dropdown">
+    <select class="form-control ml-sm-0" name="category">
         <option selected="selected" value="Select One">Select One</option>
             <% for(let i = 0; i < categories.length; i++) { %>
                  <!-- Category selection and consistency -->

@@ -57,9 +57,31 @@ router.get("/", (req, res, next)=> {
 
 })
 
-router.get("/items-search", (req, res, next)=> {
+router.post("/register", (req, res, next)=> {
 
-   res.redirect("/");
+   return knex('Users')
+   .insert(
+   {
+      UserName: req.body.username,
+      FirstName: req.body.name,
+      LastName: req.body.lastname,
+      Password: req.body.password
+   })
+   .then(   res.redirect("/"));
+})
+
+router.post("/post", (req, res, next)=> {
+
+   return knex('Items')
+   .insert(
+   {
+      UserID: 1,
+      Title: req.body.name,
+      Price: req.body.price,
+      Description: req.body.descrition,
+      Category: req.body.category
+   })
+   .then(   res.redirect("/"));
 })
 
 router.post("/items-search", (req, res, next)=> {
