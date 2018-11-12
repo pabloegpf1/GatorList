@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const aboutRouter = require('./routes/about');
+//const registerRouter = require('./routes/register');
 var request = require('request');
 
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
+//app.use('/register', registerRouter);
 
 app.use(expressLayouts);
 

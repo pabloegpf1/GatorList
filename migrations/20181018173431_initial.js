@@ -30,7 +30,7 @@ exports.up = function up(knex) {
           table.string('Price');
           table.text('Description');
           table.string('Category').references('Category').inTable('Categories').onDelete('CASCADE');
-          table.boolean('Status');
+          table.boolean('Status').defaultTo(false);
           table.string('Image');
           table.integer('ApprovedBy').references('UserName').inTable('Users');
         })
