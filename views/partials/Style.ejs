@@ -98,6 +98,9 @@ form-inline mr-auto {
     background-color: #6e3a8a;
     border-color: #6e3a8a;
 }
+.btn-primary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem;
+}
 
     .btn-secondary {
     color: #000000;
@@ -109,5 +112,15 @@ form-inline mr-auto {
     color:  #000000;
     background-color: #fdc12d;
     border-color: #fdc12d;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #000000;
+    background-color: #fdc12d;
+    border-color: #fdc12d;
+}
+
+.btn-secondary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem;
 }
 </style>
