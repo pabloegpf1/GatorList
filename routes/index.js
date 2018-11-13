@@ -90,13 +90,8 @@ router.post("/items-search", (req, res, next)=> {
       .where('Title', 'ilike', string)
       .then(function(items) {
          if(items.length == 0){
-            console.log("No results");
-            knex('Items')
-            .then(
-               knex.select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
-               .then(function(items) {
-                  res.render('items',{items: items, categories: categories});
-               }));
+            console.log("No results (no category)");
+            res.redirect('/');
          }else{
             res.render('items',{items: items, categories: categories});
          }
@@ -108,13 +103,8 @@ router.post("/items-search", (req, res, next)=> {
       .where('Category', req.body.dropdown)
       .then(function(items) {
          if(items.length == 0){
-            console.log("No results");
-            knex('Items')
-            .then(
-               knex.select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
-               .then(function(items) {
-                  res.render('items',{items: items, categories: categories});
-               }));
+            console.log("No results (with category)");
+            res.redirect('/');
          }else{
             res.render('items',{items: items, categories: categories});
          }
