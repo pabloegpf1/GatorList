@@ -1,55 +1,57 @@
 const express = require("express");
-
 const app = express();
+const bodyParser = require('body-parser');
+const indexRouter = require('./routes/index');
+const aboutRouter = require('./routes/about');
+var request = require('request');
+
+
+const Knex = require('knex');
+const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'development'])
+
+var expressLayouts = require('express-ejs-layouts');
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use('/', indexRouter);
+app.use('/about', aboutRouter);
 
-app.get("/", (req, res)=> {
+app.use(expressLayouts);
 
-	res.render("index")
-})
+app.post('/register', function(req, res) {
+    if (req.body.captcha === undefined ||
+        req.body.captcha === '' ||
+        req.body.captcha === null) {
+        return res.json({ "success": false, "msg": "Please select captcha" });
 
-app.get("/index.html", (req, res)=> {
+    }
+    //const key
+    const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
 
-	res.render("index")
-})
+    //verify URL
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
 
-app.get("/aboutStephanie.html", (req, res)=> {
+    //make request to VerifyUrl
+    request(verifyUrl, (err, response, body) => {
+        body = JSON.parse(body);
 
-	res.render("aboutStephanie")
-})
+        //If Not successful
+        if (body.success !== undefined && !body.success) {
+            return res.json({ "success": false, "msg": "Failed captcha verification" });
+        }
 
-app.get("/aboutPablo.html", (req, res)=> {
+        //If Successful
+        return res.json({ "success": true, "msg": "Captcha passed" });
+    });
+});
 
-	res.render("aboutPablo")
-})
-
-app.get("/aboutJohnny.html", (req, res)=> {
-
-	res.render("aboutJohnny")
-})
-
-app.get("/aboutSyed.html", (req, res)=> {
-
-	res.render("aboutSyed")
-})
-
-app.get("/aboutJack.html", (req, res)=> {
-
-	res.render("aboutJack")
-})
-
-app.get("/aboutMarlo.html", (req, res)=> {
-
-	res.render("aboutMarlo")
-})
-
-app.get("/aboutHarry.html", (req, res)=> {
-
-	res.render("aboutHarry")
-})
-
-app.listen(process.env.PORT || 3000, ()=> {
-
-	console.log("Server Running")
-})
+knex.migrate
+    .latest()
+    .then(() =>
+        app.listen(process.env.PORT || 5000, () =>
+            console.log(`Running on port ${process.env.PORT || 5000}!`)
+        )
+    );

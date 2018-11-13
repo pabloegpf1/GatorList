@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Head -->
+    <%- include('partials/head') %>
+    <title>
+       Post
+    </title>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- Navigation -->
+    <%- include('partials/navbar') %>
+    <!-- Style for Navigation bar-->
+    <%- include('partials/Style') %>
+
+    <!-- Input field form for user wanting to post an item to website -->
+<div class="container-form">
+
+<h1><center>Sell</center></h1>
+<form action="/post" method="post" id="register-form">
+  <div class="post-form">
+    <label for="itemname">Item Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Enter item name">
+  </div>
+  <div class="post-form">
+    <label for="Description">Description</label>
+    <textarea class="form-control" name="descrition" rows="3" placeholder="Enter Item Description"></textarea>
+  </div>
+  <div class="post-form">
+    <label for="Price">Price</label>
+    <input type="text" class="form-control" name="price" placeholder="Enter a price">
+  </div>
+  <div class="post-form">
+    <label for="Categories">Category</label>
+    <select class="form-control ml-sm-0" name="category">
+        <option selected="selected" value="Select One">Select One</option>
+            <% for(let i = 0; i < categories.length; i++) { %>
+                 <!-- Category selection and consistency -->
+                <option value="<%= categories[i].Category %>"
+                    <%if (categories[i].Category == holdCategory) { %>
+                        selected="selected"
+                    <% } %> >
+                    <%= categories[i].Category %>
+                </option>
+                    <% } %>
+    </select>
+  <div class="post-form">
+    <label for="Fileupload">Upload image</label>
+    <input type="file" class="form-control-file" id="Fileupload">
+  </div>
+  </div>
+  <p>Note: It will take up to 24 hours for Admin to review and approve Post.</p>
+  <button type="submit" href="/" class="btn btn-danger">Cancel</button>
+  <button type="submit" class="btn btn-success">Submit for Review</button></form>
+
+</div>
+
+</body>
+
+</html>

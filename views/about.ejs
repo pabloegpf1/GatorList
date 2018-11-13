@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Head -->
+    <%- include('partials/head') %>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- Navigation -->
+    <%- include('partials/navbar') %>
+    <!-- Style for Navigation bar-->
+    <%- include('partials/Style') %>
+    
+    <div align="center">
+        <h1 align="center">Welcome to My Page</h1>
+        <br>
+        <img src= "<%= image_url %>"" alt="<%= image_url %>">
+        <p>My name is
+            <%= name %>.</p>
+    </div>
+</body>
+
+</html>
