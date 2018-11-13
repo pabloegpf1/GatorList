@@ -45,6 +45,13 @@ header {
     color: #fdc12d;
 }
 
+.custom-toggler.navbar-toggler {
+    border-color: rgb(105,105,105);
+}
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(110, 58, 138, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
 h1 {
     margin: 0;
     display: inline-block;
@@ -85,6 +92,12 @@ form-inline mr-auto {
     background-color: #6e3a8a;
     border-color: #6e3a8a;
     }
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #6e3a8a;
+    border-color: #6e3a8a;
+}
 
     .btn-secondary {
     color: #000000;
