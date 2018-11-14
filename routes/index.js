@@ -11,7 +11,7 @@ global.holdSearch = "";
 global.holdCategory = "All Categories";
 
 knex("Categories").select('Category').then(function(ret){
- categories=ret;
+  categories=ret;
 }).then();
 
 router.get("/register", (req, res)=> {
@@ -61,6 +61,34 @@ router.post("/register", (req, res, next)=> {
    })
    .then(   res.redirect("/"));
 })
+
+
+router.post('/register', function(req, res) {
+ if (req.body.captcha === undefined ||
+  req.body.captcha === '' ||
+  req.body.captcha === null) {
+  return res.json({ "success": false, "msg": "Please select captcha" });
+
+}
+    //const key
+    const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
+
+    //verify URL
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+    //make request to VerifyUrl
+    request(verifyUrl, (err, response, body) => {
+      body = JSON.parse(body);
+
+        //If Not successful
+        if (body.success !== undefined && !body.success) {
+           return res.json({ "success": false, "msg": "Failed captcha verification" });
+        }
+
+        //If Successful
+        return res.json({ "success": true, "msg": "Captcha passed" });
+     });
+ });
 
 router.post("/post", (req, res, next)=> {
 
@@ -112,7 +140,5 @@ router.post("/items-search", (req, res, next)=> {
    }
 
 })
-
-
 
 module.exports = router;
