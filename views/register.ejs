@@ -7,14 +7,13 @@
     <title>Register</title>
     <!-- Style for Navigation and Containers-->
     <%- include('partials/Style') %>
-    <!-- Script for reCaptcha -->
+    <!-- Header -->
+    <%- include('partials/header') %>
     <!-- Script for reCaptcha -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
-    <!-- Header -->
-    <%- include('partials/header') %>
     <!-- Navigation -->
     <%- include('partials/navbar') %>
     <div class="container-form">
@@ -48,23 +47,20 @@
                 </label>
             </div>
             <div clas="form-group" align="center">
-                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV"></div>
-                <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV"></div><br>
+                <input type="submit" name="submit" value="Register" class="btn btn-success">
         </form>
     </div>
     <!-- Script to Verify with Google for Captcha -->
     <script>
     document.getElementById('register-form').addEventListener('submit', submitForm);
-
     function submitForm(e) {
         e.preventDefault();
-
         const username = document.querySelector('#username').value;
         const password = document.querySelector('#password').value;
         const name = document.querySelector('#name').value;
         const lastname = document.querySelector('#lastname').value;
         const captcha = document.querySelector('#g-recaptcha-response').value;
-
         fetch('/register', {
                 method: 'POST',
                 headers: {
@@ -79,7 +75,6 @@
                     captcha: captcha
                 })
             })
-
             .then((res) => res.json())
             .then((data) => {
                 //we can use this for what we want to do with the data

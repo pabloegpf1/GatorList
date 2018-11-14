@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const salt = bcrypt.genSaltSync(10);
+var bcrypt = require('bcrypt');
+
 const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
 
@@ -17,16 +17,24 @@ knex("Categories").select('Category').then(function(ret){
 
 router.get("/register", (req, res)=> {
 
-   var hash = bcrypt.hashSync(req.query.password, salt);
-   knex('Users')
-   .insert({
-      UserName: req.query.username,
-      Password: hash,
-      firstName: req.query.name,
-      lastName: req.query.lastname
-   }).then(
-   res.redirect('/')
-   );
+   res.render("register",{
+      categories: categories
+   })
+})
+router.post("/register", (req, res, next)=> {
+      //return bcrypt.hash(req.body.password, 10, function(err, hash){
+         return knex('Users')
+         .insert({
+            UserName: req.body.username,
+            Password: req.body.password,
+            FirstName: req.body.name,
+            LastName: req.body.lastname
+         }).then(
+            res.redirect('/')
+       );
+      
+   //});
+   
 })
 
 router.get("/post", (req, res)=> {
