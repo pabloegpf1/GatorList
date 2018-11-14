@@ -21,6 +21,56 @@ app.use('/about', aboutRouter);
 
 app.use(expressLayouts);
 
+
+
+
+/* aws s3 upload */
+
+ var aws = require('aws-sdk'),
+     multer = require('multer'),
+     multerS3 = require('multer-s3');
+
+aws.config.update({
+   secretAccessKey: 'oCHbzlfw5zpikd8zTA+Aq8V8gxjqYRFAL1Y4IBqi',
+   accessKeyId: 'AKIAIFB6XVADWDUAZF4A',
+   region: 'us-east-2'
+});
+
+var s3 = new aws.S3();
+
+
+const upload = multer({
+   storage: multerS3({
+     s3: s3,
+     bucket: 'gatorlist',
+     acl: 'public-read',
+     metadata: function (req, file, cb) {
+       cb(null, {fieldName: 'image'});
+     },
+     key: function (req, file, cb) {
+       cb(null, Date.now().toString() + ".png")
+     }
+   })
+ })
+
+
+// test using upload.ejs or POSTMAN 'image' is the key for upload
+
+
+app.post('/upload', upload.single('image'), (req, res, next) => {
+
+  let fileURL = req.file.location // url to upload to database form aws s3
+
+
+       res.send(JSON.stringify({fileUrl: fileURL))
+})
+
+
+
+
+
+/*   */
+
 app.post('/register', function(req, res) {
     if (req.body.captcha === undefined ||
         req.body.captcha === '' ||
