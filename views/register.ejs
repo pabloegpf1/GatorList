@@ -20,36 +20,33 @@
         <h1><center>Registration</center></h1>
         <form action="/register" method="post" id="register-form">
             <div class="form-group">
-                <label for="exampleInputEmail1">Username</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Email</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Repeat password</label>
-                <input type="password" class="form-control" name="password2" id="password2" placeholder="Enter password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">First name</label>
+                <label for="exampleInputEmail1">Enter First name:</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Enter username">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Last name</label>
+                <label for="exampleInputEmail1">Enter Last name:</label>
                 <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter username">
             </div>
-            <!-- Default unchecked -->
+            <div class="form-group">
+                <label for="exampleInputPassword1">Enter an Email:</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Enter a Username:</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Enter a Password:</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+            </div>
+            <!-- Default unchecked checkbox-->
             <div class="form-group custom-checkbox" align="center">
                 <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
                 <label class="custom-control-label" for="defaultUnchecked">
                     I agree to the <u>Terms Of Use.</u>
                 </label>
             </div>
+            <!-- Div that loads captcha -->
             <div clas="form-group" align="center">
                 <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV"></div><br>
                 <input type="submit" name="submit" value="Register" class="btn btn-success">
@@ -62,11 +59,12 @@
     function submitForm(e) {
         e.preventDefault();
 
-        const username = document.querySelector('#username').value;
-        const email = document.querySelector('#email').value;
-        const password = document.querySelector('#password').value;
         const name = document.querySelector('#name').value;
         const lastname = document.querySelector('#lastname').value;
+        const email = document.querySelector('#email').value;
+
+        const username = document.querySelector('#username').value;
+        const password = document.querySelector('#password').value;
         const captcha = document.querySelector('#g-recaptcha-response').value;
 
         fetch('/register', {
@@ -76,11 +74,12 @@
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password,
                     name: name,
                     lastname: lastname,
+                    email: email,
+                    username: username,
+
+                    password: password,
                     captcha: captcha
                 })
             })
@@ -93,6 +92,8 @@
             });
     }
     </script>
+    <!-- Script to render active tab on navbar -->
+    <%- include('partials/nav-active') %>
 </body>
 
 </html>
