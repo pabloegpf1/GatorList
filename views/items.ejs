@@ -63,8 +63,9 @@ hr {
     <%- include('partials/navbar') %>
     <!-- Card container for post -->
     <div class="container-items">
+        <h3 align="center">Welcome to <strong>GatorList</strong>, where you can browse, purchase, and sell items between fellow San Francisco State University students.</h3><br>
         <h1>Recent Posts</h1>
-        <h4 align="right">Total Items: <%= items.length %></h4>
+        <h4 align="right">Showing <%= items.length %> - <%= items.length %> out of <%= items.length %></h4>
         <!-- First Card Column -->
         <% for(let i = 0; i < items.length; i++) { %>
         <% if(i % 2 == 0) { %>
@@ -75,7 +76,7 @@ hr {
                         <div class="row">
                             <div class="col-md-6">
                                 <h5 class="card-title"><%= items[i].Title %></h5>
-                                            <img class="d-block w-100" id="items-pic" src=<%= items[i].Image %>
+                                <img class="d-block w-100" id="items-pic" src=<%= items[i].Image %>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -103,7 +104,7 @@ hr {
                         <div class="row">
                             <div class="col-md-6">
                                 <h5 class="card-title"><%= items[i].Title %></h5>
-                                            <img class="d-block w-100" id="items-pic" src=<%= items[i].Image %>
+                                <img class="d-block w-100" id="items-pic" src=<%= items[i].Image %>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -128,7 +129,6 @@ hr {
         </div>
         <% } %>
         <% } %>
-        
 </body>
 
 </html>
