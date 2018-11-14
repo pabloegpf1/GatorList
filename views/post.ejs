@@ -20,7 +20,7 @@
     <!-- Input field form for user wanting to post an item to website -->
 <div class="container-form">
 
-<h1><center>Sell</center></h1>
+<h1><center>Item to Sell</center></h1>
 <form action="/post" method="post" id="register-form">
   <div class="post-form">
     <label for="itemname">Item Name</label>
@@ -54,10 +54,13 @@
   </div>
   </div>
   <p>Note: It will take up to 24 hours for Admin to review and approve Post.</p>
-  <button type="submit" href="/" class="btn btn-danger">Cancel</button>
+  <button type="submit" href="/" class="btn btn-danger" target="_blank">Cancel</button>
   <button type="submit" class="btn btn-success">Submit for Review</button></form>
 
 </div>
+
+<!-- Script to render active tab on navbar -->
+    <%- include('partials/nav-active') %>
 
 </body>
 
