@@ -8,18 +8,36 @@
     <!-- Style for Navigation and Containers-->
     <%- include('partials/Style') %>
     <!-- Style for Card container-->
-
     <style>
-        body {
-    background-color: #FFFFFF;
+        #items-pic {
+   height: 150px;
+   width: 250px;
+   position: center;
+   max-width: 100%;
+   max-length: 100%;
+   object-fit: contain;
 }
+
+#description{
+    height: 150px;
+    overflow: scroll;
+}
+
+.container-items {
+    width: 85%;
+    padding: 30px;
+    opacity: 0.97;
+    border-radius: 25px;
+    margin-left: 7.5%;
+}
+
 .card {
-    border-radius: 0;
+    border-radius: 30;
     margin: 10px auto;
 }
 .card-title {
+    padding: 10px;
     text-transform: uppercase;
-    color: #E44424;
 }
 .card-text {
     margin-top: 10px;
@@ -27,13 +45,16 @@
     background-color: #FFFFFF;
     color: #000000;
 }
+
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 </style>
+</head>
 
 <body>
     <!-- Header -->
@@ -42,74 +63,78 @@ hr {
     <%- include('partials/navbar') %>
     <!-- Card container for post -->
     <div class="container-items">
+        <h3 align="center">Welcome to <strong>GatorList</strong>, where you can browse, purchase, and sell items between fellow San Francisco State University students.</h3><br>
         <h1>Recent Posts</h1>
-        <h4 align="right">Total Items: <%= items.length %></h4>
+        <h4 align="right">Showing <%= items.length %> - <%= items.length %> out of <%= items.length %></h4>
         <!-- First Card Column -->
         <% for(let i = 0; i < items.length; i++) { %>
         <% if(i % 2 == 0) { %>
-        <div class="container">
-            <div class="card-deck">
-                <div class="row">
-                    <div class="card auto">
-                        <div class="row no-gutters">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5 class="card-title"><%= items[i].Title %></h5>
-                                    <img class="w-100" id="items-pic" src=<%= items[i].Image %>
+        <div class="card-deck">
+            <div class="row">
+                <div class="card auto">
+                    <div class="row no-gutters">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="card-title"><%= items[i].Title %></h5>
+                                <img class="d-block w-100" id="items-pic" src=<%= items[i].Image %>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>Description: </strong><br>
+                                        <div id="description">
+                                            <%= items[i].Description %>
+                                        </div>
+                                </div>
+                            </div>
                         </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            <strong>Description: </strong><br>
-                                            <%= items[i].description %>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: </strong><br>
-                                    <!--<%= items[i].price %>-->
-                                    <strong>Seller: </strong>
-                                    <%= items[i].UserID %>
-                                    <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
-                                </p>
-                            </div>
+                        <div class="card-footer w-100 text-muted">
+                            <p><strong>Price: $<%= items[i].Price %></strong><br>
+                                <strong>Seller: <%= items[i].UserName %></strong>
+                                <button type="submit" href="message-form" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                            </p>
                         </div>
                     </div>
-                           <% }else { %>
-
-                    <!-- Second Card Column -->
-                    <div class="card auto">
-                        <div class="row no-gutters">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5 class="card-title"><%= items[i].Title %></h5>
-                                    <img class="w-100" id="items-pic" src=<%= items[i].Image %>
+                </div>
+                <% }else { %>
+                <!-- Second Card Column -->
+                <div class="card auto">
+                    <div class="row no-gutters">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="card-title"><%= items[i].Title %></h5>
+                                <img class="d-block w-100" id="items-pic" src=<%= items[i].Image %>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>Description: </strong><br>
+                                        <div id="description">
+                                            <%= items[i].Description %>
+                                        </div>
+                                </div>
+                            </div>
                         </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            <strong>Description: </strong><br>
-                                            <%= items[i].description %>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: </strong><br>
-                                    <!--<%= items[i].price %>-->
-                                    <strong>Seller: </strong>
-                                    <%= items[i].UserID %>
-                                    <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
-                                </p>
-                            </div>
+                        <div class="card-footer w-100 text-muted">
+                            <p><strong>Price: $<%= items[i].Price %></strong><br>
+                                <strong>Seller: <%= items[i].UserName %></strong>
+                                <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <% } %>
-    <% } %>
+        <% } %>
+
+         <!--Script to hide 'home' on navbar -->
+    <script>
+    $(".navbar-nav li").eq(0).hide();
+  
+</script>
 </body>
 
 </html>

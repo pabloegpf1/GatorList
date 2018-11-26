@@ -3,7 +3,7 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Users').then(exists => {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
-          table.increments('ID').unsigned().notNullable().primary();
+          table.increments('ID');
           table.string('UserName').unique();
           table.string('FirstName');
           table.string('LastName');
@@ -26,22 +26,23 @@ exports.up = function up(knex) {
         return knex.schema.createTable('Items', table =>{
           table.increments('ID').primary();
           table.string('Title');
-          table.integer('UserID').unsigned().notNullable().references('UserName').inTable('Users');
+          table.integer('UserID').unsigned().notNullable().references('ID').inTable('Users');
           table.string('Price');
           table.text('Description');
           table.string('Category').references('Category').inTable('Categories').onDelete('CASCADE');
-          table.boolean('Status').defaultTo(false);
+          table.boolean('Status');
           table.string('Image');
-          table.integer('ApprovedBy').references('UserName').inTable('Users');
+          table.integer('ApprovedBy').references('ID').inTable('Users');
+          table.timestamp('created_at').defaultTo(knex.fn.now());
         })
       }
     }),
     knex.schema.hasTable('Messages').then(exists => {
       if(!exists){
         return knex.schema.createTable('Messages', table =>{
-          table.integer('User_from').unique().references('UserName').inTable('Users');
-          table.integer('User_to').unique().references('UserName').inTable('Users');
-          table.integer('ItemID').unique().references('Title').inTable('Items');
+          table.integer('User_from').unique().references('ID').inTable('Users');
+          table.integer('User_to').unique().references('ID').inTable('Users');
+          table.integer('ItemID').unique().references('ID').inTable('Items');
           table.text('Content').unique();
         })
       }
@@ -49,8 +50,8 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Favorites').then(exists => {
       if(!exists){
         return knex.schema.createTable('Favorites', table =>{
-          table.integer('UserID').unique().references('UserName').inTable('Users');
-          table.integer('ItemID').unique().references('Title').inTable('Items');
+          table.integer('UserID').unique().references('ID').inTable('Users');
+          table.integer('ItemID').unique().references('ID').inTable('Items');
         })
       }
     })

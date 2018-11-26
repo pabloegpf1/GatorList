@@ -9,7 +9,7 @@ let categories;
 
 // global temp variables to hold user's search query and chosen category. may be used throughout all js and ejs files
 global.holdSearch = "";
-global.holdCategory = "All Categories"; 
+global.holdCategory = "All Categories";
 
 knex("Categories").select('Category').then(function(ret){
   categories=ret;
@@ -20,21 +20,6 @@ router.get("/register", (req, res)=> {
    res.render("register",{
       categories: categories
    })
-})
-router.post("/register", (req, res, next)=> {
-      //return bcrypt.hash(req.body.password, 10, function(err, hash){
-         return knex('Users')
-         .insert({
-            UserName: req.body.username,
-            Password: req.body.password,
-            FirstName: req.body.name,
-            LastName: req.body.lastname
-         }).then(
-            res.redirect('/')
-       );
-      
-   //});
-   
 })
 
 router.get("/post", (req, res)=> {
@@ -49,44 +34,13 @@ router.get("/login", (req, res)=> {
    res.render("login",{
       categories: categories
    })
-
-   res.redirect("/user-dashboard", {
-      categories: categories
-   })
 })
-
-router.get("/admin-dashboard", (req, res)=> {
-
-   knex("Items")
-   .select('Title', 'UserID', 'Category', 'Image', 'Status')
-   .where({Status : 'false'})
-   .then(function(items) {
-      res.render("admin-dashboard",{
-         items: items,
-         categories: categories
-      })
-   });
-})
-
-router.get("/admin-review", (req, res)=> {
-
-   res.render("admin-review",{
-      categories: categories
-   })
-})
-
-router.get("/user-dashboard", (req, res)=> {
-
-   res.render("user-dashboard",{
-      categories: categories
-   })
-})
-
 
 router.get("/", (req, res, next)=> {
 
    knex("Items")
-   .select('Title', 'UserID', 'Category', 'Image')
+   .join('Users', 'Items.UserID', '=', 'Users.ID')
+   .select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
    .then(function(items) {
       res.render("items",{
          items: items,
@@ -96,9 +50,61 @@ router.get("/", (req, res, next)=> {
 
 })
 
-router.get("/items-search", (req, res, next)=> {
+router.post("/register", (req, res, next)=> {
+  //bcrypt.hash(req.body.password, 10, function(err, hash){
+    //var hash = bcrypt.hashSync("asd", 10);
+    return knex('Users')
+    .insert(
+    {
+      UserName: req.body.username,
+      FirstName: req.body.firstname,
+      LastName: req.body.lastname,
+      Password: req.body.password
+    })
+    .then(  res.redirect("/"));
+  //})
+})
 
-   res.redirect("/");
+
+router.post('/register', function(req, res) {
+ if (req.body.captcha === undefined ||
+  req.body.captcha === '' ||
+  req.body.captcha === null) {
+  return res.json({ "success": false, "msg": "Please select captcha" });
+
+}
+    //const key
+    const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
+
+    //verify URL
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+    //make request to VerifyUrl
+    request(verifyUrl, (err, response, body) => {
+      body = JSON.parse(body);
+
+        //If Not successful
+        if (body.success !== undefined && !body.success) {
+           return res.json({ "success": false, "msg": "Failed captcha verification" });
+        }
+
+        //If Successful
+        return res.json({ "success": true, "msg": "Captcha passed" });
+     });
+ });
+
+router.post("/post", (req, res, next)=> {
+
+   return knex('Items')
+   .insert(
+   {
+      UserID: 1,
+      Title: req.body.name,
+      Price: req.body.price,
+      Description: req.body.descrition,
+      Category: req.body.category
+   })
+   .then(   res.redirect("/"));
 })
 
 router.post("/items-search", (req, res, next)=> {
@@ -111,33 +117,25 @@ router.post("/items-search", (req, res, next)=> {
 
    if(req.body.dropdown == 'Select One'){
       knex('Items')
+      .join('Users', 'Items.UserID', '=', 'Users.ID')
       .where('Title', 'ilike', string)
       .then(function(items) {
          if(items.length == 0){
-            console.log("No results");
-            knex('Items')
-            .then(
-               knex.select('Title', 'UserID', 'Category', 'Image').from('Items')
-               .then(function(items) {
-                  res.render('items',{items: items, categories: categories});
-               }));
+            console.log("No results (no category)");
+            res.redirect('/');
          }else{
             res.render('items',{items: items, categories: categories});
          }
       });
    }else{
       knex('Items')
+      .join('Users', 'Items.UserID', '=', 'Users.ID')
       .where('Title', 'ilike', string)
       .where('Category', req.body.dropdown)
       .then(function(items) {
          if(items.length == 0){
-            console.log("No results");
-            knex('Items')
-            .then(
-               knex.select('Title', 'UserID', 'Category', 'Image').from('Items')
-               .then(function(items) {
-                  res.render('items',{items: items, categories: categories});
-               }));
+            console.log("No results (with category)");
+            res.redirect('/');
          }else{
             res.render('items',{items: items, categories: categories});
          }
@@ -145,7 +143,5 @@ router.post("/items-search", (req, res, next)=> {
    }
 
 })
-
-
 
 module.exports = router;

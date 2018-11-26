@@ -5,10 +5,32 @@ exports.seed = function(knex, Promise) {
     // Inserts seed entries
     return knex('Users').insert([
     {
-      ID: 1,
       UserName: 'pabloegpf1',
       FirstName: 'Pablo',
-      LastName: 'Escriva'
+    },
+    {
+      UserName: 'legenhairy',
+      FirstName: 'Harry',
+    },
+    {
+      UserName: 'Greedhunter',
+      FirstName: 'Jack',
+    },
+    {
+      UserName: 'StephanieSantana',
+      FirstName: 'Stephanie',
+    },
+    {
+      UserName: 'MarS26v7',
+      FirstName: 'Marlo',
+    },
+    {
+      UserName: 'johnnydcs',
+      FirstName: 'Johhny',
+    },
+    {
+      UserName: 'skazmi154',
+      FirstName: 'Syed',
     }
     ]);
   });

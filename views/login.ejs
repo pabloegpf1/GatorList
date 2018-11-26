@@ -22,7 +22,7 @@
         <div display="inline-block">
         <br>
         <strong><p>New User?</strong><br>
-        <a href="/register">Register here</a></p>
+        <a href="/register target="_blank"">Register here</a></p>
     </div>
         <form action="/user-dashboard" method="get">
             <div class="form-group">
@@ -33,13 +33,17 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-success">Login</button>
             <div style="padding-left: 60%">
-                <a href="/forgot-password">Forgot Password?</p>
+                <a href="/forgot-password target="_blank"">Forgot Password?</p>
             </div>
     </div>
     </form>
     </div>
+
+   <!-- Script to render active tab on navbar -->
+    <%- include('partials/nav-active') %>
+
 </body>
 
 </html>
