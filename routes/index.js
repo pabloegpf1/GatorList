@@ -93,6 +93,18 @@ router.post('/register', function(req, res) {
      });
  });
 
+router.get("/admin-dashboard", (req, res)=> {
+
+   knex("Items")
+   .select('Title', 'UserID', 'Category', 'Image', 'Status')
+   .where({Status : 'false'})
+   .then(function(items) {
+      res.render("admin-dashboard",{
+         items: items,
+         categories: categories
+      })
+   });
+})
 router.post("/post", (req, res, next)=> {
 
    return knex('Items')
