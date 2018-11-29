@@ -4,10 +4,10 @@ exports.up = function up(knex) {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
           table.increments('ID');
-          table.string('UserName').unique();
+          table.string('username').unique();
           table.string('FirstName');
           table.string('LastName');
-          table.jsonb('Password');
+          table.string('password');
           table.boolean('Admin').defaultTo(false);
         })
       }

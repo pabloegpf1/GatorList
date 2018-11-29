@@ -5,32 +5,39 @@ exports.seed = function(knex, Promise) {
     // Inserts seed entries
     return knex('Users').insert([
     {
-      UserName: 'pabloegpf1',
+      username: 'pabloegpf1',
       FirstName: 'Pablo',
+      password: '123'
     },
     {
-      UserName: 'legenhairy',
+      username: 'legenhairy',
       FirstName: 'Harry',
+      password: '123'
     },
     {
-      UserName: 'Greedhunter',
+      username: 'Greedhunter',
       FirstName: 'Jack',
+      password: '123'
     },
     {
-      UserName: 'StephanieSantana',
+      username: 'StephanieSantana',
       FirstName: 'Stephanie',
+      password: '123'
     },
     {
-      UserName: 'MarS26v7',
+      username: 'MarS26v7',
       FirstName: 'Marlo',
+      password: '123'
     },
     {
-      UserName: 'johnnydcs',
+      username: 'johnnydcs',
       FirstName: 'Johhny',
+      password: '123'
     },
     {
-      UserName: 'skazmi154',
+      username: 'skazmi154',
       FirstName: 'Syed',
+      password: '123'
     }
     ]);
   });
