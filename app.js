@@ -8,6 +8,16 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
+const multer = require('multer');
+const AWS = require('aws-sdk');
+
+var accessKeyId =  "AKIAIH7HFQQ5LFY54BJQ";
+var secretAccessKey = "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";
+
+AWS.config.update({
+  accessKeyId: accessKeyId,
+  secretAccessKey: secretAccessKey
+});
 
 var request = require('request');
 
@@ -27,8 +37,8 @@ app.use(session({
     secret: 'secret', //ToDo we need to change this (is an env var needed, would that even work?)
     saveUninitialized: true,
     resave: true
- }));
-
+  }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -45,20 +55,45 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.use(new localStrategy(
- function(username, password, done) {
-   knex('Users').where('username', '=',username)
-   .then(function(user) {
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-     }
-     if (user[0].password != password) {
-      console.log("incorrect password");
-      return done(null, false, { message: 'Incorrect password.' });
-   }
-   return done(null, user);
-})
+passport.use(new localStrategy({
+  passReqToCallback: true
+},
+function(req, username, password, done) {
+  knex('Users').where('username',username)
+  .then(function(user) {
+    console.log("user: "+user[0].username);
+    if (user[0] == null) {
+      return done(null, false, req.flash('authMessage', "User not valid"));
+    }
+    if (user[0].password != password) {
+      return done(null, false, req.flash('authMessage', "Invalid password"));
+    }
+    return done(null, user);
+  }).catch(function(err) {
+   return done(null, false, req.flash('authMessage', "User not found"));
+ })
 }));
+
+let s3 = new AWS.S3();
+
+var upload = multer({
+  storage: multer({
+    s3: s3,
+    bucket: 'csc648team12',
+    key: function (req, file, cb) {
+      console.log(file);
+      cb(null, file.originalname);
+    }
+  })
+});
+
+app.post('/upload', function(req, res){
+  if(req.files.image !== undefined){
+        res.redirect("/uploads"); // success
+      }else{
+        res.send("error, no file chosen");
+      }
+    });
 
 knex.migrate
 .latest()
