@@ -131,21 +131,29 @@ router.post("/post", (req, res, next)=> {
   knex('Items')
   .join('Users', 'Items.UserID', '=', 'Users.ID')
   .where('Title', 'ilike', string)
+  .where('Approved',true)
+  .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
   .then(function(items) {
    if(items.length == 0){
     console.log("No results (no category)");
     res.redirect('/');                    //If there is no results, we show all items
+  }else{
+    res.render('items',{items: items, categories: categories});
   }
 });
 }else{                                    //A category has been selected
   knex('Items')
   .join('Users', 'Items.UserID', '=', 'Users.ID')
   .where('Title', 'ilike', string)
+  .where('Approved',true)
+  .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
   .where('Category', req.body.dropdown)   //Then, we filter by category
   .then(function(items) {
    if(items.length == 0){
     console.log("No results (with category)");
     res.redirect('/');                    //If there is no results, we show all items
+  }else{
+    res.render('items',{items: items, categories: categories});
   }
 });
 }
