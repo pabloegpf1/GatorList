@@ -10,6 +10,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const multer = require('multer');
 const AWS = require('aws-sdk');
+const bcrypt = require('bcrypt')
 
 var accessKeyId =  "AKIAIH7HFQQ5LFY54BJQ";
 var secretAccessKey = "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";
@@ -65,10 +66,12 @@ function(req, username, password, done) {
     if (user[0] == null) {
       return done(null, false, req.flash('authMessage', "User not valid"));
     }
-    if (user[0].password != password) {
+    if (bcrypt.compareSync(password, user[0].password)) {
+      return done(null, user);
+    } else {
+    	console.log('test');
       return done(null, false, req.flash('authMessage', "Invalid password"));
     }
-    return done(null, user);
   }).catch(function(err) {
    return done(null, false, req.flash('authMessage', "User not found"));
  })

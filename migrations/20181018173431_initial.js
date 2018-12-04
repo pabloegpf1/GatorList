@@ -42,7 +42,7 @@ exports.up = function up(knex) {
           table.integer('User_from').unique().references('ID').inTable('Users');
           table.integer('User_to').unique().references('ID').inTable('Users');
           table.integer('ItemID').unique().references('ID').inTable('Items');
-          table.text('Content').unique();
+          table.text('Content');
         })
       }
     }),

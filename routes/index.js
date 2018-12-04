@@ -38,7 +38,7 @@ router.post("/register", (req, res)=> {
   .insert(
   {
     username: req.body.username,
-    FirstName: req.body.firstname,
+    FirstName: req.body.name,
     LastName: req.body.lastname,
     password: hash
   })
