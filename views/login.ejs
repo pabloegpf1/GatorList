@@ -18,13 +18,13 @@
     <%- include('partials/Style') %>
 
     <div class="container-form">
-        <h1><center>Login</center></h1> 
+        <h1><center>Login</center></h1>
         <div display="inline-block">
         <br>
         <strong><p>New User?</strong><br>
         <a href="/register target="_blank"">Register here</a></p>
     </div>
-        <form action="/user-dashboard" method="get">
+        <form action="/login" method="post">
             <div class="form-group">
                 <label for="exampleInputEmail1">Username</label>
                 <input type="text" class="form-control" name="username" placeholder="Enter username">
