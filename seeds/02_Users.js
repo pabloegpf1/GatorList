@@ -7,37 +7,37 @@ exports.seed = function(knex, Promise) {
     {
       username: 'pabloegpf1',
       FirstName: 'Pablo',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
       username: 'legenhairy',
       FirstName: 'Harry',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
       username: 'Greedhunter',
       FirstName: 'Jack',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
       username: 'StephanieSantana',
       FirstName: 'Stephanie',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
       username: 'MarS26v7',
       FirstName: 'Marlo',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
       username: 'johnnydcs',
       FirstName: 'Johhny',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
       username: 'skazmi154',
       FirstName: 'Syed',
-      password: '123'
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     }
     ]);
   });
