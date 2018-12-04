@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const bcrypt = require('bcrypt')
 
 const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
@@ -24,20 +25,22 @@ router.post('/login',
   );
 
 router.get("/register", (req, res)=> {
-
  res.render("register",{
   categories: categories
 })
 })
 
 router.post("/register", (req, res)=> {
+
+  let hash = bcrypt.hashSync(req.body.password, 9)
+
   knex('Users')
   .insert(
   {
     username: req.body.username,
-    FirstName: req.body.name,
+    FirstName: req.body.firstname,
     LastName: req.body.lastname,
-    password: req.body.password
+    password: hash
   })
   .then(res.redirect("/"));
 })
@@ -72,7 +75,7 @@ router.get("/", (req, res, next)=> {
 
 })
 
-router.post('/captcha', function(req, res) {
+router.post('/register', function(req, res) {
   if (req.body.captcha === undefined ||
     req.body.captcha === '' ||
     req.body.captcha === null) {
@@ -111,6 +114,7 @@ router.post("/post", (req, res, next)=> {
   })
   .then(   res.redirect("/"));
 })
+
 
 /*
 ----Post request for search bar/dropdown----
