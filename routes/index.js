@@ -8,7 +8,8 @@ const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'developmen
 
 let categories;
 
-// global temp variables to hold user's search query and chosen category. may be used throughout all js and ejs files
+// global temp variables to hold user's search query and chosen category.
+// may be used throughout all js and ejs files
 global.holdSearch = "";
 global.holdCategory = "All Categories";
 
@@ -122,19 +123,24 @@ router.post("/post", (req, res, next)=> {
   Persistent search by Johnny Huynh
   Reviewed by Stephanie Santana
   */
-  router.post("/items-search", (req, res, next)=> {
+router.post("/items-search", (req, res, next)=> {
 
- let string = "%"+req.body.search+"%";    //format the search sring to use with %like
+ 
+global.holdSearch = req.body.search.replace(/[^A-Za-z0-9]/g, '');
+// variable that keeps the last search string by user
+// also removes all non alpha-numerics from string to prevent injection scenarios
 
- global.holdSearch = req.body.search;     //variable that keeps the last search string by user
- global.holdCategory = req.body.dropdown; //variable that keeps the last category used by user
+global.holdCategory = req.body.dropdown; //variable that keeps the last category used by user
 
- console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
+// let string = "%"+holdSearch+"%";    //format the search sring to use with %like
+// removed string since holdSearch is basically the same thing now
 
- if(req.body.dropdown == 'Select One'){   //If no category has been selected
+console.log("Searching for: " + holdSearch +" Category: "+ req.body.dropdown);
+
+if(req.body.dropdown == 'Select One'){   //If no category has been selected
   knex('Items')
   .join('Users', 'Items.UserID', '=', 'Users.ID')
-  .where('Title', 'ilike', string)
+  .where('Title', 'ilike', "%"+holdSearch+"%") // replaced var string with holdSearch here
   .where('Approved',true)
   .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
   .then(function(items) {
@@ -148,7 +154,7 @@ router.post("/post", (req, res, next)=> {
 }else{                                    //A category has been selected
   knex('Items')
   .join('Users', 'Items.UserID', '=', 'Users.ID')
-  .where('Title', 'ilike', string)
+  .where('Title', 'ilike', "%"+holdSearch+"%") // replaced var string with holdSearch here
   .where('Approved',true)
   .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
   .where('Category', req.body.dropdown)   //Then, we filter by category
@@ -164,4 +170,4 @@ router.post("/post", (req, res, next)=> {
 
 })
 
-  module.exports = router;
+module.exports = router;
