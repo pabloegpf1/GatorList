@@ -66,7 +66,33 @@ function(req, username, password, done) {
    return done(null, false, req.flash('authMessage', "User not found"));
  })
 }));
-
+var aws = require('aws-sdk'),
+    multer = require('multer'),
+    multerS3 = require('multer-s3');
+ aws.config.update({
+    secretAccessKey: 'oCHbzlfw5zpikd8zTA+Aq8V8gxjqYRFAL1Y4IBqi',
+    accessKeyId: 'AKIAIFB6XVADWDUAZF4A',
+    region: 'us-east-2'
+});
+ var s3 = new aws.S3();
+ const upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: 'gatorlist',
+      acl: 'public-read',
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName: 'image'});
+      },
+      key: function (req, file, cb) {
+        cb(null, Date.now().toString() + ".png")
+      }
+    })
+  })
+ app.post('/upload', upload.single('image'), (req, res)=> {
+         let imageLink = req.file.location 
+        
+})
+ 
 knex.migrate
 .latest()
 .then(() =>
