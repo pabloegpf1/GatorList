@@ -62,7 +62,6 @@ router.get("/login", (req, res)=> {
 })
 
 router.get("/", (req, res, next)=> {
-  console.log(req.user.username;)
   knex("Items")
   .join('Users', 'Items.UserID', '=', 'Users.ID')
   .where('Approved',true)
