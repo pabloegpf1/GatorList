@@ -52,7 +52,9 @@ const upload = multer({
 app.post('/upload', upload.single('image'), (req, res)=> {
 
         let imageLink = req.file.location 
+        console.log(imageLink);
         
+        return res.json({'imageUrl': req.file.location});
 })
 
 
