@@ -10,7 +10,8 @@ exports.seed = function(knex, Promise) {
       Category: 'Books',
       Price: 12,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/fundamentals-of-database-systems-for-vtu-original-imadtkg5qhb63jdz.jpeg'
+      Image: 'https://s3.amazonaws.com/csc648team12/fundamentals-of-database-systems-for-vtu-original-imadtkg5qhb63jdz.jpeg',
+      Approved: true
     },
     {
       Title: 'Batteries',
@@ -18,7 +19,8 @@ exports.seed = function(knex, Promise) {
       Price: 3,
       Category: 'Electronics',
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/ZOLL_batteries_530x%402x.png'
+      Image: 'https://s3.amazonaws.com/csc648team12/ZOLL_batteries_530x%402x.png',
+      Approved: true
     },
     {
       Title: 'Chair',
@@ -26,7 +28,8 @@ exports.seed = function(knex, Promise) {
       Category: 'Home',
       Price: 18,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/MontereyChairCharcoalSHS16_1x1.jpeg'
+      Image: 'https://s3.amazonaws.com/csc648team12/MontereyChairCharcoalSHS16_1x1.jpeg',
+      Approved: true
     },
     {
       Title: 'TV',
@@ -34,7 +37,8 @@ exports.seed = function(knex, Promise) {
       Category: 'Electronics',
       Price: 150,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/636524900539955437-Element-RokuTV-HERO.jpg'
+      Image: 'https://s3.amazonaws.com/csc648team12/636524900539955437-Element-RokuTV-HERO.jpg',
+      Approved: true
     },
     {
       Title: 'Physics book',
@@ -42,7 +46,8 @@ exports.seed = function(knex, Promise) {
       Category: 'Books',
       Price: 20,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/31-500x500.jpg'
+      Image: 'https://s3.amazonaws.com/csc648team12/31-500x500.jpg',
+      Approved: true
     },
     {
       Title: 'Calculus book',
@@ -50,7 +55,8 @@ exports.seed = function(knex, Promise) {
       Category: 'Books',
       Price: 10,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/main-qimg-7994ee6ba77511ed9c1fa1999a6ec841-c.jpeg'
+      Image: 'https://s3.amazonaws.com/csc648team12/main-qimg-7994ee6ba77511ed9c1fa1999a6ec841-c.jpeg',
+      Approved: true
     },
     {
       Title: 'Table',
@@ -58,7 +64,8 @@ exports.seed = function(knex, Promise) {
       Category: 'Home',
       Price: 25,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/download.jpeg'
+      Image: 'https://s3.amazonaws.com/csc648team12/download.jpeg',
+      Approved: true
     },
     {
       Title: 'Laptop',
@@ -66,7 +73,8 @@ exports.seed = function(knex, Promise) {
       Price: 125,
       Category: 'Electronics',
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/laptop.jpg'
+      Image: 'https://s3.amazonaws.com/csc648team12/laptop.jpg',
+      Approved: true
     }
     ]);
 });

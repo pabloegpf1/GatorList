@@ -11,9 +11,9 @@
                 <select class="form-control ml-sm-0" name="dropdown">
                     <option selected="selected" value="Select One">All Categories</option>
                     <% for(let i = 0; i < categories.length; i++) { %>
-                    
+
                     <!-- Category selection and consistency -->
-                    <option value="<%= categories[i].Category %>" 
+                    <option value="<%= categories[i].Category %>"
                         <%if (categories[i].Category == holdCategory) { %>
                             selected="selected"
                         <% } %> >
@@ -40,16 +40,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about" target="_blank">About Team</a>
+                    <a class="nav-link" href="/about"  >About Team</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/post" target="_blank">Sell</a>
+                    <a class="nav-link" href="/post"  >Sell</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register" target="_blank">Register</a>
+                    <a class="nav-link" href="/register"  >Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login" target="_blank">Login</a>
+                    <a class="nav-link" href="/login"  >Login</a>
                 </li>
             </ul>
         </div>

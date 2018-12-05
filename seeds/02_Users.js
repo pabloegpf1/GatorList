@@ -5,32 +5,39 @@ exports.seed = function(knex, Promise) {
     // Inserts seed entries
     return knex('Users').insert([
     {
-      UserName: 'pabloegpf1',
+      username: 'pabloegpf1',
       FirstName: 'Pablo',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
-      UserName: 'legenhairy',
+      username: 'legenhairy',
       FirstName: 'Harry',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
-      UserName: 'Greedhunter',
+      username: 'Greedhunter',
       FirstName: 'Jack',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
-      UserName: 'StephanieSantana',
+      username: 'StephanieSantana',
       FirstName: 'Stephanie',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
-      UserName: 'MarS26v7',
+      username: 'MarS26v7',
       FirstName: 'Marlo',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
-      UserName: 'johnnydcs',
+      username: 'johnnydcs',
       FirstName: 'Johhny',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     },
     {
-      UserName: 'skazmi154',
+      username: 'skazmi154',
       FirstName: 'Syed',
+      password: '$2b$09$5CgYnaugwV9sK5n/tkALfuON5nZTYy6Yr.gxmbawVe5F0tbvJNz9i'
     }
     ]);
   });
