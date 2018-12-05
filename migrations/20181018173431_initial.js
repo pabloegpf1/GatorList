@@ -46,6 +46,14 @@ exports.up = function up(knex) {
         })
       }
     }),
+    knex.schema.hasTable('Images').then(exists => {
+      if(!exists){
+        return knex.schema.createTable('Images', table =>{
+          table.integer('ItemID').references('ID').inTable('Items');
+          table.text('Link');
+        })
+      }
+    }),
     knex.schema.hasTable('Favorites').then(exists => {
       if(!exists){
         return knex.schema.createTable('Favorites', table =>{
@@ -55,11 +63,11 @@ exports.up = function up(knex) {
       }
     })
     ])
-
 };
 
 exports.down = function down(knex) {
   return knex.schema
+  .dropTableIfExists('Images')
   .dropTableIfExists('Favorites')
   .dropTableIfExists('Messages')
   .dropTableIfExists('Items')

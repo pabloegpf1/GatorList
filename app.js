@@ -8,17 +8,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const multer = require('multer');
-const AWS = require('aws-sdk');
 const bcrypt = require('bcrypt')
-
-var accessKeyId =  "AKIAIH7HFQQ5LFY54BJQ";
-var secretAccessKey = "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";
-
-AWS.config.update({
-  accessKeyId: accessKeyId,
-  secretAccessKey: secretAccessKey
-});
 
 var request = require('request');
 
@@ -76,27 +66,6 @@ function(req, username, password, done) {
    return done(null, false, req.flash('authMessage', "User not found"));
  })
 }));
-
-let s3 = new AWS.S3();
-
-var upload = multer({
-  storage: multer({
-    s3: s3,
-    bucket: 'csc648team12',
-    key: function (req, file, cb) {
-      console.log(file);
-      cb(null, file.originalname);
-    }
-  })
-});
-
-app.post('/upload', function(req, res){
-  if(req.files.image !== undefined){
-        res.redirect("/uploads"); // success
-      }else{
-        res.send("error, no file chosen");
-      }
-    });
 
 knex.migrate
 .latest()

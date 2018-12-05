@@ -42,7 +42,8 @@ router.post("/register", (req, res)=> {
     LastName: req.body.lastname,
     password: hash
   })
-  .then(res.redirect("/"));
+  .then();
+  res.redirect("/")
 })
 
 router.get("/post", (req, res)=> {
@@ -61,17 +62,17 @@ router.get("/login", (req, res)=> {
 })
 
 router.get("/", (req, res, next)=> {
-
- knex("Items")
- .join('Users', 'Items.UserID', '=', 'Users.ID')
- .where('Approved',true)
- .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
- .then(function(items) {
-  res.render("items",{
-   items: items,
-   categories: categories
- })
-});
+  console.log(req.user.username;)
+  knex("Items")
+  .join('Users', 'Items.UserID', '=', 'Users.ID')
+  .where('Approved',true)
+  .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+  .then(function(items) {
+    res.render("items",{
+     items: items,
+     categories: categories
+   })
+  });
 
 })
 
