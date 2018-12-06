@@ -4,10 +4,10 @@ exports.up = function up(knex) {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
           table.increments('ID');
-          table.string('UserName').unique();
+          table.string('username').unique();
           table.string('FirstName');
           table.string('LastName');
-          table.jsonb('Password');
+          table.string('password');
           table.boolean('Admin').defaultTo(false);
         })
       }
@@ -30,9 +30,8 @@ exports.up = function up(knex) {
           table.string('Price');
           table.text('Description');
           table.string('Category').references('Category').inTable('Categories').onDelete('CASCADE');
-          table.boolean('Status');
+          table.boolean('Approved').defaultTo(false);
           table.string('Image');
-          table.integer('ApprovedBy').references('ID').inTable('Users');
           table.timestamp('created_at').defaultTo(knex.fn.now());
         })
       }

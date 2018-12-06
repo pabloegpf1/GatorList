@@ -24,19 +24,19 @@
         <a href="/login" target="_blank">Login here</a></p>
         <form action="/register" method="post" id="register-form">
             <div class="form-group">
-                <label for="exampleInputEmail1">Enter First name:</label>
+                <label for="first-name">Enter First name:</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Enter Last name:</label>
+                <label for="last-name">Enter Last name:</label>
                 <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter Last Name">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Enter a Username:</label>
+                <label for="username">Enter a Username:</label>
                 <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Enter a Password:</label>
+                <label for="password">Enter a Password:</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
             </div>
             <!-- Default unchecked checkbox-->
@@ -61,8 +61,6 @@
 
         const name = document.querySelector('#name').value;
         const lastname = document.querySelector('#lastname').value;
-        const email = document.querySelector('#email').value;
-
         const username = document.querySelector('#username').value;
         const password = document.querySelector('#password').value;
         const captcha = document.querySelector('#g-recaptcha-response').value;
@@ -76,9 +74,7 @@
                 body: JSON.stringify({
                     name: name,
                     lastname: lastname,
-                    email: email,
                     username: username,
-
                     password: password,
                     captcha: captcha
                 })
@@ -88,7 +84,7 @@
             .then((data) => {
                 //we can use this for what we want to do with the data
                 console.log(data);
-                //alert(data.msg);
+                alert(data.msg);
             });
     }
     </script>

@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 const Knex = require('knex');
 const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'development'])
+
+var request = require('request');
 
 let categories;
 
@@ -14,61 +17,89 @@ knex("Categories").select('Category').then(function(ret){
   categories=ret;
 }).then();
 
+router.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  })
+  );
+
 router.get("/register", (req, res)=> {
 
-   res.render("register",{
-      categories: categories
-   })
+ res.render("register",{
+  categories: categories
+})
+})
+
+router.post("/register", (req, res)=> {
+  knex('Users')
+  .insert(
+  {
+    username: req.body.username,
+    FirstName: req.body.name,
+    LastName: req.body.lastname,
+    password: req.body.password
+  })
+  .then(res.redirect("/"));
 })
 
 router.get("/post", (req, res)=> {
 
-   res.render("post",{
-      categories: categories
-   })
+ res.render("post",{
+  categories: categories
+})
 })
 
 router.get("/login", (req, res)=> {
 
-   res.render("login",{
-      categories: categories
-   })
+ res.render("login",{
+  categories: categories,
+  authMessage: req.flash('authMessage')
+})
+})
+
+router.get("/message-form", (req, res)=> {
+
+ res.render("message-form",{
+  categories: categories
+})
+})
+
+router.get("/admin-dashboard", (req, res)=> {
+
+ res.render("admin-dashboard",{
+  categories: categories
+})
+})
+
+router.get("/user-dashboard", (req, res)=> {
+
+ res.render("user-dashboard",{
+  categories: categories
+})
 })
 
 router.get("/", (req, res, next)=> {
 
-   knex("Items")
-   .join('Users', 'Items.UserID', '=', 'Users.ID')
-   .select('Items.Title', 'Users.UserName', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
-   .then(function(items) {
-      res.render("items",{
-         items: items,
-         categories: categories
-      })
-   });
+ knex("Items")
+ .join('Users', 'Items.UserID', '=', 'Users.ID')
+ .where('Approved',true)
+ .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+ .then(function(items) {
+  res.render("items",{
+   items: items,
+   categories: categories
+ })
+});
 
 })
 
-router.post("/register", (req, res, next)=> {
-
-   return knex('Users')
-   .insert(
-   {
-      UserName: req.body.username,
-      FirstName: req.body.name,
-      LastName: req.body.lastname,
-      Password: req.body.password
-   })
-   .then(   res.redirect("/"));
-})
-
-
-router.post('/register', function(req, res) {
- if (req.body.captcha === undefined ||
-  req.body.captcha === '' ||
-  req.body.captcha === null) {
-  return res.json({ "success": false, "msg": "Please select captcha" });
-
+router.post('/captcha', function(req, res) {
+  if (req.body.captcha === undefined ||
+    req.body.captcha === '' ||
+    req.body.captcha === null) {
+    return res.json({ "success": false, "msg": "Please select captcha" });
 }
     //const key
     const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
@@ -82,63 +113,74 @@ router.post('/register', function(req, res) {
 
         //If Not successful
         if (body.success !== undefined && !body.success) {
-           return res.json({ "success": false, "msg": "Failed captcha verification" });
-        }
+         return res.json({ "success": false, "msg": "Failed captcha verification" });
+       }
 
         //If Successful
         return res.json({ "success": true, "msg": "Captcha passed" });
-     });
- });
+      });
+  });
 
 router.post("/post", (req, res, next)=> {
-
-   return knex('Items')
-   .insert(
-   {
-      UserID: 1,
-      Title: req.body.name,
-      Price: req.body.price,
-      Description: req.body.descrition,
-      Category: req.body.category
-   })
-   .then(   res.redirect("/"));
+  let userID = req.user[0].ID;
+  return knex('Items')
+  .insert(
+  {
+    UserID: userID,
+    Title: req.body.name,
+    Price: req.body.price,
+    Description: req.body.descrition,
+    Category: req.body.category
+  })
+  .then(   res.redirect("/"));
 })
 
-router.post("/items-search", (req, res, next)=> {
-   let string = "%"+req.body.search+"%";
+/*
+----Post request for search bar/dropdown----
+  Created by Pablo Escriva
+  Persistent search by Johnny Huynh
+  Reviewed by Stephanie Santana
+  */
+  router.post("/items-search", (req, res, next)=> {
 
-   global.holdSearch = req.body.search;
-   global.holdCategory = req.body.dropdown;
+ let string = "%"+req.body.search+"%";    //format the search sring to use with %like
 
-   console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
+ global.holdSearch = req.body.search;     //variable that keeps the last search string by user
+ global.holdCategory = req.body.dropdown; //variable that keeps the last category used by user
 
-   if(req.body.dropdown == 'Select One'){
-      knex('Items')
-      .join('Users', 'Items.UserID', '=', 'Users.ID')
-      .where('Title', 'ilike', string)
-      .then(function(items) {
-         if(items.length == 0){
-            console.log("No results (no category)");
-            res.redirect('/');
-         }else{
-            res.render('items',{items: items, categories: categories});
-         }
-      });
-   }else{
-      knex('Items')
-      .join('Users', 'Items.UserID', '=', 'Users.ID')
-      .where('Title', 'ilike', string)
-      .where('Category', req.body.dropdown)
-      .then(function(items) {
-         if(items.length == 0){
-            console.log("No results (with category)");
-            res.redirect('/');
-         }else{
-            res.render('items',{items: items, categories: categories});
-         }
-      });
-   }
+ console.log("Searching for: " + string +" Category: "+ req.body.dropdown);
+
+ if(req.body.dropdown == 'Select One'){   //If no category has been selected
+  knex('Items')
+  .join('Users', 'Items.UserID', '=', 'Users.ID')
+  .where('Title', 'ilike', string)
+  .where('Approved',true)
+  .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+  .then(function(items) {
+   if(items.length == 0){
+    console.log("No results (no category)");
+    res.redirect('/');                    //If there is no results, we show all items
+  }else{
+    res.render('items',{items: items, categories: categories});
+  }
+});
+}else{                                    //A category has been selected
+  knex('Items')
+  .join('Users', 'Items.UserID', '=', 'Users.ID')
+  .where('Title', 'ilike', string)
+  .where('Approved',true)
+  .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+  .where('Category', req.body.dropdown)   //Then, we filter by category
+  .then(function(items) {
+   if(items.length == 0){
+    console.log("No results (with category)");
+    res.redirect('/');                    //If there is no results, we show all items
+  }else{
+    res.render('items',{items: items, categories: categories});
+  }
+});
+}
 
 })
 
-module.exports = router;
+  module.exports = router;

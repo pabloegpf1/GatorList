@@ -9,51 +9,52 @@
     <%- include('partials/Style') %>
     <!-- Style for Card container-->
     <style>
-        #items-pic {
-   height: 150px;
-   width: 250px;
-   position: center;
-   max-width: 100%;
-   max-length: 100%;
-   object-fit: contain;
-}
+    #items-pic {
+        height: 150px;
+        width: 250px;
+        position: center;
+        max-width: 100%;
+        max-length: 100%;
+        object-fit: contain;
+    }
 
-#description{
-    height: 150px;
-    overflow: scroll;
-}
+    #description {
+        height: 150px;
+        overflow: scroll;
+    }
 
-.container-items {
-    width: 85%;
-    padding: 30px;
-    opacity: 0.97;
-    border-radius: 25px;
-    margin-left: 7.5%;
-}
+    .container-items {
+        width: 85%;
+        padding: 30px;
+        opacity: 0.97;
+        border-radius: 25px;
+        margin-left: 7.5%;
+    }
 
-.card {
-    border-radius: 30;
-    margin: 10px auto;
-}
-.card-title {
-    padding: 10px;
-    text-transform: uppercase;
-}
-.card-text {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: #FFFFFF;
-    color: #000000;
-}
+    .card {
+        border-radius: 30;
+        margin: 10px auto;
+    }
 
-hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
+    .card-title {
+        padding: 10px;
+        text-transform: uppercase;
+    }
 
-</style>
+    .card-text {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        color: #000000;
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    </style>
 </head>
 
 <body>
@@ -92,7 +93,7 @@ hr {
                         <div class="card-footer w-100 text-muted">
                             <p><strong>Price: $<%= items[i].Price %></strong><br>
                                 <strong>Seller: <%= items[i].UserName %></strong>
-                                <button type="submit" href="message-form" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                <a href="/message-form" target="_blank" class="btn btn-primary" style="float: right;">Contact Seller</a>
                             </p>
                         </div>
                     </div>
@@ -120,7 +121,7 @@ hr {
                         <div class="card-footer w-100 text-muted">
                             <p><strong>Price: $<%= items[i].Price %></strong><br>
                                 <strong>Seller: <%= items[i].UserName %></strong>
-                                <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                <a href="/message-form" target="_blank" class="btn btn-primary" style="float: right;">Contact Seller</a>
                             </p>
                         </div>
                     </div>
@@ -129,12 +130,10 @@ hr {
         </div>
         <% } %>
         <% } %>
-
-         <!--Script to hide 'home' on navbar -->
-    <script>
-    $(".navbar-nav li").eq(0).hide();
-  
-</script>
+        <!--Script to hide 'home' on navbar -->
+        <script>
+        $(".navbar-nav li").eq(0).hide();
+        </script>
 </body>
 
 </html>
