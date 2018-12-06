@@ -37,7 +37,7 @@
 
     #description {
         height: 150px;
-        width: 380px;
+        width: 350px;
         overflow: scroll;
     }
 
@@ -64,6 +64,12 @@
         border: 0;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
+
+     h1 {
+        text-shadow: 1px 1px 1px #000000;
+        color: #8623bf;
+    }
+
     </style>
 </head>
 
@@ -76,7 +82,7 @@
     <%- include('partials/Style') %>
     <!--First Card for Registered Users -->
     <div class="container-dashboard">
-        <h1 style="color: #8623bf"><strong>Admin Dashboard</strong></h1>
+        <h1><strong>Admin Dashboard</strong></h1>
         <!-- First Row for Registered Users -->
         <div class="row">
             <div class="col-md-4">
@@ -108,52 +114,51 @@
             <!--Card for Items to Review -->
             <div class="col-md-8">
                 <div class="table-responsive">
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">RECENT POSTS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <div class="card auto">
-                                    <div class="row no-gutters">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <h5 class="card-title">Item Title</h5>
-                                                <img class="d-block w-100" id="items-pic" src="https://via.placeholder.com/280">
+                    <table class="table table-borderless">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">RECENT POSTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <div class="card auto">
+                                        <div class="row no-gutters">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h5 class="card-title">Item Title</h5>
+                                                    <img class="d-block w-100" id="items-pic" src="https://via.placeholder.com/280">
                                 </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        Description:<br>
+                                                        <div id="description">
+                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
+                                                        </div>
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
-                                                <p class="card-text">
-                                                    Description:<br>
-                                                    <div id="description">
-                                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                                                    </div>
+                                            <div class="card-footer w-100 text-muted">
+                                                <p><strong>Price:</strong><br>
+                                                    <strong>Seller:</strong>
+                                                        <a href="" class="btn btn-success" style="float: right;">Approve</a>  
+                                                    <a href="/" class="btn btn-danger" style="float: right; margin-right: 5px;">Deny</a>
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="card-footer w-100 text-muted">
-                                            <p><strong>Price:</strong><br>
-                                                <strong>Seller:</strong>
-                                                <a href="/post-to-review" class="btn btn-secondary" style="float: right;">Review Post</a>
-                                            </p>
-                                        </div>
                                     </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-            <!-- Script to render active tab on navbar -->
-            <%- include('partials/nav-active') %>
-            <!--Script to hide 'home' on navbar -->
-            <script>
-            $(".navbar-nav li").eq(0).hide();
-            </script>
+        <!-- Script to render active tab on navbar -->
+        <%- include('partials/nav-active') %>
+   
 </body>
 
 </html>

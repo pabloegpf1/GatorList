@@ -5,15 +5,74 @@
     <!-- Head -->
     <%- include('partials/head') %>
     <title>
-        User Dashboard
+        Admin Dashboard
     </title>
     <style>
+    .table .thead-dark th {
+        color: #ffffff;
+        background-color: #36383C;
+        border-color: #36383C;
+    }
+
+    th {
+        font-weight: normal;
+    }
+
     .container-dashboard {
         width: 85%;
         padding: 30px;
         opacity: 0.97;
         border-radius: 25px;
         margin-left: 7.5%;
+    }
+
+    #items-pic {
+        height: 150px;
+        width: 250px;
+        position: center;
+        max-width: 100%;
+        max-length: 100%;
+        object-fit: contain;
+    }
+
+    #description {
+        height: 150px;
+        width: 190px;
+        overflow: scroll;
+    }
+
+    .card {
+        border-radius: 0;
+        margin: 0px auto;
+    }
+
+    .card-title {
+        padding: 10px;
+        text-transform: uppercase;
+    }
+
+    .card-text {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        color: #000000;
+    }
+
+    .card-header {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-shadow: 1px 1px 1px #000000;
+        color: #fdc12d;
     }
     </style>
 </head>
@@ -25,11 +84,109 @@
     <%- include('partials/navbar') %>
     <!-- Style for Navigation bar-->
     <%- include('partials/Style') %>
+    <!--First Card for Registered Users -->
+    <!--Card for Items to Review -->
     <div class="container-dashboard">
-        <h1><center>User Dashboard</center></h1>
+        <h1><strong>User Dashboard</strong></h1>
+        <!-- First Column for Recent Posts -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">MY POSTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <div class="card auto">
+                                        <div class="row no-gutters">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h5 class="card-title">Item Title</h5>
+                                                    <img class="d-block w-100" id="items-pic" src="https://via.placeholder.com/280">
+                                </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        Description:<br>
+                                                        <div id="description">
+                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula
+                                                            Price:
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer w-100 text-muted">
+                                                <p><strong>Price:</strong><br>
+                                                    <strong>Seller:</strong>
+                                                    <a href="/" class="btn btn-danger" style="float: right;">Delete</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Second Column for Messages -->
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">MESSAGES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Username1
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Item: Physics Book</li>
+                                        <li class="list-group-item">
+                                            <p style="padding: 5px;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                                        </li>
+                                    </ul>
+                                    <div class="card-footer w-100 text-muted">
+                                        <p>
+                                            <a href="/" class="btn btn-primary" style="float: right";>Contact Buyer</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        <th scope="row">
+                            <div class="card">
+                                <div class="card-header">
+                                    Username2
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Item: Sofa</li>
+                                    <li class="list-group-item">
+                                        <p style="padding: 5px;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                                    </li>
+                                </ul>
+                            <div class="card-footer w-100 text-muted">
+                                <p>
+                                    <a href="/" class="btn btn-primary" style="float: right";>Contact Buyer</a>
+                                </p>
+                            </div>
+            </div>
+            </th>
+            </tr>
+            </tbody>
+            </table>
+        </div>
     </div>
-    </form>
     </div>
+
     <!-- Script to render active tab on navbar -->
     <%- include('partials/nav-active') %>
 </body>
