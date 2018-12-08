@@ -5,31 +5,38 @@ exports.seed = function(knex, Promise) {
     // Inserts seed entries
     return knex('Users').insert([
     {
-      UserName: 'pabloegpf1',
+      ID: 1,  
+      username: 'pabloegpf1',
       FirstName: 'Pablo',
     },
     {
-      UserName: 'legenhairy',
+      ID: 2,
+      username: 'legenhairy',
       FirstName: 'Harry',
     },
     {
-      UserName: 'Greedhunter',
+      ID: 3,
+      username: 'Greedhunter',
       FirstName: 'Jack',
     },
     {
-      UserName: 'StephanieSantana',
+      ID: 4,
+      username: 'StephanieSantana',
       FirstName: 'Stephanie',
     },
     {
-      UserName: 'MarS26v7',
+      ID: 5,
+      username: 'MarS26v7',
       FirstName: 'Marlo',
     },
     {
-      UserName: 'johnnydcs',
+      ID: 6,
+      username: 'johnnydcs',
       FirstName: 'Johhny',
     },
     {
-      UserName: 'skazmi154',
+      ID: 7,
+      username: 'skazmi154',
       FirstName: 'Syed',
     }
     ]);
