@@ -39,9 +39,9 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Messages').then(exists => {
       if(!exists){
         return knex.schema.createTable('Messages', table =>{
-          table.integer('User_from').unique().references('ID').inTable('Users');
-          table.integer('User_to').unique().references('ID').inTable('Users');
-          table.integer('ItemID').unique().references('ID').inTable('Items');
+          table.integer('User_from').references('ID').inTable('Users');
+          table.integer('User_to').references('ID').inTable('Users');
+          table.integer('ItemID').references('ID').inTable('Items');
           table.text('Content');
         })
       }

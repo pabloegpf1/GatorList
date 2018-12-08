@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Head -->
+    <%- include('partials/head') %>
+    <title>
+        Admin Dashboard
+    </title>
+    <style>
+    .table .thead-dark th {
+        color: #ffffff;
+        background-color: #36383C;
+        border-color: #36383C;
+    }
+
+    th {
+        font-weight: normal;
+    }
+
+    .container-dashboard {
+        width: 85%;
+        padding: 30px;
+        opacity: 0.97;
+        border-radius: 25px;
+        margin-left: 7.5%;
+    }
+
+    #items-pic {
+        height: 150px;
+        width: 250px;
+        position: center;
+        max-width: 100%;
+        max-length: 100%;
+        object-fit: contain;
+    }
+
+    #description {
+        height: 150px;
+        width: 120px;
+        overflow: scroll;
+    }
+
+    .card {
+        border-radius: 0;
+        margin: 0px auto;
+    }
+
+    .card-title {
+        padding: 10px;
+        text-transform: uppercase;
+    }
+
+    .card-text {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        color: #000000;
+    }
+
+    .card-header {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-shadow: 1px 1px 1px #000000;
+        color: #fdc12d;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- Navigation -->
+    <%- include('partials/navbar') %>
+    <!-- Style for Navigation bar-->
+    <%- include('partials/Style') %>
+    <!--First Card for Registered Users -->
+    <!--Card for Items to Review -->
+    <div class="container-dashboard">
+        <h1><strong>User Dashboard</strong></h1>
+        <!-- First Column for Recent Posts -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">MY POSTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                            <% for(let i = 0; i < items.length; i++) { %>
+                                    <div class="card auto">
+                                        <div class="row no-gutters">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h5 class="card-title"><%= items[i].Title %></h5>
+                                                    <img class="d-block w-100" id="items-pic" src="https://via.placeholder.com/280">
+                                            </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        Description:<br>
+                                                        <div id="description">
+                                                            <%= items[i].Description %>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer w-100 text-muted">
+                                                <p><strong>Price:<%= items[i].Price %></strong><br>
+                                                    <strong>Seller:<%= items[i].username %></strong>
+                                                    <a href="/" class="btn btn-danger" style="float: right;">Delete</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Second Column for Messages -->
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">MESSAGES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                            <% for(let i = 0; i < messages.length; i++) { %>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <%=  messages[i].username %>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Item: <%= messages[i].Title %></li>
+                                        <li class="list-group-item">
+                                            <p style="padding: 5px;"><%= messages[i].Content %></p>
+                                        </li>
+                                    </ul>
+                                    <div class="card-footer w-100 text-muted">
+                                        <p>
+                                            <a href="/send-message?to_id=<%= messages[i].User_from %>&username= <%= messages[i].username %>&item=<%= messages[i].Title %>&item_id=<%= messages[i].ID %>" class="btn btn-primary" style="float: right";>Reply</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </th>
+                        </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <!-- Script to render active tab on navbar -->
+    <%- include('partials/nav-active') %>
+</body>
+
+</html>

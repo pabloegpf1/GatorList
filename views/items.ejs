@@ -100,7 +100,7 @@
                             <div class="card-footer w-100 text-muted">
                                 <p><strong>Price: $<%= items[i].Price %></strong><br>
                                     <strong>Seller: <%= items[i].username %></strong>
-                                    <button type="submit" href="message-form" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                    <button type="submit" href="/message-form?to_id=<%= items[i].UserID %>&username=<%= items[i].username %>&item=<%= items[i].Title %>&item_id=<%= items[i].ID %>" class="btn btn-primary" class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                             <div class="card-footer w-100 text-muted">
                                 <p><strong>Price: $<%= items[i+1].Price %></strong><br>
                                     <strong>Seller: <%= items[i+1].username %></strong>
-                                    <button type="submit" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                    <button href="/message-form?to_id=<%= items[i+1].UserID %>&username=<%= items[i+1].username %>&item=<%= items[i+1].Title %>&item_id=<%= items[i+1].ID %>"class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
                         </div>
@@ -168,12 +168,12 @@
                             <div class="card-footer w-100 text-muted">
                                 <p><strong>Price: $<%= items[items.length-1].Price %></strong><br>
                                     <strong>Seller: <%= items[items.length-1].username %></strong>
-                                    <button type="submit" href="message-form" class="btn btn-primary" style="float: right;">Contact Seller</button>
+                                    <button href="/message-form?to_id=<%= items[items.length-1].UserID %>&username=<%= items[items.length-1].username %>&item=<%= items[items.length-1].Title %>&item_id=<%= items[items.length-1].ID %>" class="btn btn-primary" style="float: right;">Contact Seller</button>
                                 </p>
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <% } %>
             <!-- End of last odd item -->
