@@ -92,16 +92,16 @@
         <!-- First Column for Recent Posts -->
         <div class="row">
             <div class="col-md-6">
-                <table class="table table-borderless">
+                <table class="table table-borderless table-hover">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">MY POSTS</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <% for(let i = 0; i < items.length; i++) { %>
                         <tr>
                             <th scope="row">
-                                <% for(let i = 0; i < items.length; i++) { %>
                                 <div class="card auto">
                                     <div class="row no-gutters">
                                         <div class="row">
@@ -136,16 +136,16 @@
             </div>
             <!-- Second Column for Messages -->
             <div class="col-md-6">
-                <table class="table table-borderless">
+                <table class="table table-borderless table-hover">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">MESSAGES</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <% for(let i = 0; i < messages.length; i++) { %>
                         <tr>
                             <th scope="row">
-                                <% for(let i = 0; i < messages.length; i++) { %>
                                 <div class="card">
                                     <div class="card-header">
                                         <%=  messages[i].username %>
