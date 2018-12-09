@@ -61,6 +61,13 @@ router.get("/login", (req, res)=> {
 })
 })
 
+router.get("/message-form", (req, res)=> {
+
+ res.render("message-form",{
+  categories: categories,
+})
+})
+
 router.get("/", (req, res, next)=> {
   knex("Items")
   .join('Users', 'Items.UserID', '=', 'Users.ID')
