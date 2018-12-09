@@ -5,13 +5,14 @@
     <!-- Head -->
     <%- include('partials/head') %>
     <title>
-        Admin Dashboard
+        User Dashboard
     </title>
     <style>
     .table .thead-dark th {
         color: #ffffff;
         background-color: #36383C;
         border-color: #36383C;
+        font-weight: bold;
     }
 
     th {
@@ -37,7 +38,7 @@
 
     #description {
         height: 150px;
-        width: 120px;
+        width: 180px;
         overflow: scroll;
     }
 
@@ -91,47 +92,47 @@
         <!-- First Column for Recent Posts -->
         <div class="row">
             <div class="col-md-6">
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">MY POSTS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">
-                                    <div class="card auto">
-                                        <div class="row no-gutters">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <h5 class="card-title">Item Title</h5>
-                                                    <img class="d-block w-100" id="items-pic" src="https://via.placeholder.com/280">
-                                </div>
-                                                </div>
-                                                <div class="card-body">
-                                                    <p class="card-text">
-                                                        Description:<br>
-                                                        <div id="description">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula
-                                                            Price:
-                                                        </div>
-                                                    </p>
+                <table class="table table-borderless">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">MY POSTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <% for(let i = 0; i < items.length; i++) { %>
+                                <div class="card auto">
+                                    <div class="row no-gutters">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 class="card-title"><%= items[i].Title %></h5>
+                                                <img class="d-block w-100" id="items-pic" src=<%=  items[i].Image %>>
+                                            </div>
+                                                <div class="col-md-6">
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            Description:<br>
+                                                            <div id="description">
+                                                                <%= items[i].Description %>
+                                                            </div>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="card-footer w-100 text-muted">
-                                                <p><strong>Price:</strong><br>
-                                                    <strong>Seller:</strong>
+                                                <p><strong>Price:<%= items[i].Price %></strong><br>
+                                                    <strong>Seller:<%= items[i].username %></strong>
                                                     <a href="/" class="btn btn-danger" style="float: right;">Delete</a>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                    <% } %>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- Second Column for Messages -->
             <div class="col-md-6">
@@ -144,30 +145,35 @@
                     <tbody>
                         <tr>
                             <th scope="row">
+                                <% for(let i = 0; i < messages.length; i++) { %>
                                 <div class="card">
                                     <div class="card-header">
-                                        Username1
+                                        <%=  messages[i].username %>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Item: Physics Book</li>
+                                        <li class="list-group-item">Item:
+                                            <%= messages[i].Title %>
+                                        </li>
                                         <li class="list-group-item">
-                                            <p style="padding: 5px;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                                            <p style="padding: 5px;">
+                                                <%= messages[i].Content %>
+                                            </p>
                                         </li>
                                     </ul>
                                     <div class="card-footer w-100 text-muted">
                                         <p>
-                                            <a href="/" class="btn btn-primary" style="float: right";>Contact Buyer</a>
+                                            <a href="/send-message?to_id=<%= messages[i].User_from %>&username= <%= messages[i].username %>&item=<%= messages[i].Title %>&item_id=<%= messages[i].ID %>" class="btn btn-primary" style="float: right";>Reply</a>
                                         </p>
                                     </div>
                                 </div>
+                                <% } %>
                             </th>
                         </tr>
-            </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    </div>
-
     <!-- Script to render active tab on navbar -->
     <%- include('partials/nav-active') %>
 </body>

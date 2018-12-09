@@ -17,14 +17,18 @@
     <!-- Style for Navigation bar-->
     <%- include('partials/Style') %>
 
+<% if (authMessage.length > 0) { %>
+   <div class="alert alert-danger"><%= authMessage %></div>
+   <% } %>
+
     <div class="container-form">
-        <h1><center>Login</center></h1> 
+        <h1><center>Login</center></h1>
         <div display="inline-block">
         <br>
         <strong><p>New User?</strong><br>
-        <a href="/register target="_blank"">Register here</a></p>
+        <a href="/register" >Register here</a></p>
     </div>
-        <form action="/user-dashboard" method="get">
+        <form action="/login" method="post">
             <div class="form-group">
                 <label for="exampleInputEmail1">Username</label>
                 <input type="text" class="form-control" name="username" placeholder="Enter username">
@@ -35,7 +39,7 @@
             </div>
             <button type="submit" class="btn btn-success">Login</button>
             <div style="padding-left: 60%">
-                <a href="/forgot-password target="_blank"">Forgot Password?</p>
+                <a href="">Forgot Password?</p>
             </div>
     </div>
     </form>

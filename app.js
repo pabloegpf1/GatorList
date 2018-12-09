@@ -8,16 +8,9 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const multer = require('multer');
-const AWS = require('aws-sdk');
+const bcrypt = require('bcrypt')
 
-var accessKeyId =  "AKIAIH7HFQQ5LFY54BJQ";
-var secretAccessKey = "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";
-
-AWS.config.update({
-  accessKeyId: accessKeyId,
-  secretAccessKey: secretAccessKey
-});
+var request = require('request');
 
 const Knex = require('knex');
 const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'development'])
@@ -63,35 +56,45 @@ function(req, username, password, done) {
     if (user[0] == null) {
       return done(null, false, req.flash('authMessage', "User not valid"));
     }
-    if (user[0].password != password) {
+    if (bcrypt.compareSync(password, user[0].password)) {
+      return done(null, user);
+    } else {
+    	console.log('test');
       return done(null, false, req.flash('authMessage', "Invalid password"));
     }
-    return done(null, user);
   }).catch(function(err) {
    return done(null, false, req.flash('authMessage', "User not found"));
  })
 }));
 
-let s3 = new AWS.S3();
-
-var upload = multer({
-  storage: multer({
-    s3: s3,
-    bucket: 'csc648team12',
-    key: function (req, file, cb) {
-      console.log(file);
-      cb(null, file.originalname);
-    }
-  })
+var aws = require('aws-sdk'),
+multer = require('multer'),
+multerS3 = require('multer-s3');
+aws.config.update({
+  secretAccessKey: 'oCHbzlfw5zpikd8zTA+Aq8V8gxjqYRFAL1Y4IBqi',
+  accessKeyId: 'AKIAIFB6XVADWDUAZF4A',
+  region: 'us-east-2'
 });
 
-app.post('/upload', function(req, res){
-  if(req.files.image !== undefined){
-        res.redirect("/uploads"); // success
-      }else{
-        res.send("error, no file chosen");
-      }
-    });
+var s3 = new aws.S3();
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'gatorlist',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: 'image'});
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString() + ".png")
+    }
+  })
+})
+
+app.post('/upload', upload.single('image'), (req, res)=> {
+ let imageLink = req.file.location
+
+})
 
 knex.migrate
 .latest()
