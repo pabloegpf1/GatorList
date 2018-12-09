@@ -77,6 +77,8 @@ aws.config.update({
 });
 
 var s3 = new aws.S3();
+
+
 const upload = multer({
   storage: multerS3({
     s3: s3,
@@ -93,6 +95,9 @@ const upload = multer({
 
 app.post('/upload', upload.single('image'), (req, res)=> {
  let imageLink = req.file.location
+ console.log(imageLink);
+
+ return res.json({'imageUrl': req.file.location});
 
 })
 
