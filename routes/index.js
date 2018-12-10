@@ -25,6 +25,14 @@ router.post('/login',
   })
 );
 
+router.post('/deleteitem',(req, res)=> {
+  knex('Items')
+  .where('ID','=',req.query.id)
+  .del()
+  .then(res.redirect('/user-dashboard'));
+ }
+);
+
 router.get("/register", (req, res)=> {
  res.render("register",{
   categories: categories
@@ -82,7 +90,7 @@ router.get("/user-dashboard", (req, res)=> {
     knex('Items')
     .join('Users', 'Items.UserID', '=', 'Users.ID')
     .where('UserID', '=', req.user[0].ID)
-    .select('Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+    .select('Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price', 'Items.ID')
     .then(function(items) {
       knex('Messages')
       .join('Users','Users.ID','=', 'User_from')
@@ -102,8 +110,11 @@ router.get("/user-dashboard", (req, res)=> {
 })
 
 router.get("/admin-dashboard", (req, res)=> {
-  if(req.user==undefined || req.user[0].admin == true){
-    res.redirect('/login')
+
+  if(req.user==undefined){
+    res.redirect('/login');
+  }else if(req.user[0].Admin == false){
+    res.redirect('/');
   }else{
     knex('Users')
     .select('username')

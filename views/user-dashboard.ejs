@@ -121,9 +121,11 @@
                                                 </div>
                                             </div>
                                             <div class="card-footer w-100 text-muted">
-                                                <p><strong>Price:<%= items[i].Price %></strong><br>
-                                                    <strong>Seller:<%= items[i].username %></strong>
-                                                    <a href="/" class="btn btn-danger" style="float: right;">Delete</a>
+                                                <p><strong>Price: $<%= items[i].Price %></strong><br>
+                                                    <strong>Seller: <%= items[i].username %></strong>
+                                                    <form action="/deleteItem?id=<%= items[i].ID %>" method="post">
+                                                        <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
+                                                    </form>
                                                 </p>
                                             </div>
                                         </div>
