@@ -65,7 +65,7 @@ router.get("/", (req, res, next)=> {
   knex("Items")
   .join('Users', 'Items.UserID', '=', 'Users.ID')
   .where('Approved',true)
-  .select('Items.Title', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+  .select('Items.ID','Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
   .then(function(items) {
     res.render("items",{
      items: items,
@@ -85,7 +85,7 @@ router.get("/user-dashboard", (req, res)=> {
     .select('Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
     .then(function(items) {
       knex('Messages')
-      .join('Users','Users.ID','=', 'User_to')
+      .join('Users','Users.ID','=', 'User_from')
       .join('Items', 'Items.UserID', '=', 'Users.ID')
       .where('User_to', '=', req.user[0].ID)
       //.where('ItemID', '=', 'Items.ID')
@@ -138,8 +138,16 @@ router.get("/send-message", (req, res)=> {
   }
 })
 
-router.post("/send-message", (req, res)=> {
-
+router.post("/send-message", function(req, res) {
+  knex('Messages')
+  .insert(
+  {
+    User_from: req.user[0].ID,
+    User_to: req.query.user_to,
+    ItemID: req.query.item,
+    Content: req.body.message_body,
+  })
+  .then(res.redirect("/"));
 })
 
 router.post('/register', function(req, res) {
@@ -207,7 +215,7 @@ router.post("/items-search", (req, res, next)=> {
     .join('Users', 'Items.UserID', '=', 'Users.ID')
     .where('Title', 'ilike', "%"+holdSearch+"%") // replaced var string with holdSearch here
     .where('Approved',true)
-    .select('Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+    .select('Items.ID','Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
     .then(function(items) {
      if(items.length == 0){
       console.log("No results (no category)");
@@ -221,7 +229,7 @@ router.post("/items-search", (req, res, next)=> {
     .join('Users', 'Items.UserID', '=', 'Users.ID')
     .where('Title', 'ilike', "%"+holdSearch+"%") // replaced var string with holdSearch here
     .where('Approved',true)
-    .select('Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+    .select('Items.ID','Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
     .where('Category', req.body.dropdown)   //Then, we filter by category
     .then(function(items) {
      if(items.length == 0){
