@@ -72,15 +72,16 @@ router.get("/login", (req, res)=> {
 router.get("/", (req, res, next)=> {
   knex("Items")
   .join('Users', 'Items.UserID', '=', 'Users.ID')
+  .leftJoin('Images','Items.ID','=','ItemID')
+  .groupBy('Items.ID','Users.username')
   .where('Approved',true)
-  .select('Items.ID','Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+  .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.Description', 'Items.UserID', 'Users.username', 'Items.Category','Items.Price')
   .then(function(items) {
     res.render("items",{
      items: items,
      categories: categories
    })
   });
-
 })
 
 router.get("/user-dashboard", (req, res)=> {
@@ -89,15 +90,16 @@ router.get("/user-dashboard", (req, res)=> {
   }else{
     knex('Items')
     .join('Users', 'Items.UserID', '=', 'Users.ID')
+    .leftJoin('Images','Items.ID','=','Images.ItemID')
+    .groupBy('Items.ID','Users.username')
     .where('UserID', '=', req.user[0].ID)
-    .select('Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price', 'Items.ID')
+    .select(knex.raw('array_agg("Link") as Images'),'Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Description','Items.Price', 'Items.ID')
     .then(function(items) {
       knex('Messages')
       .join('Users','Users.ID','=', 'User_from')
       .join('Items', 'Items.UserID', '=', 'Users.ID')
       .where('User_to', '=', req.user[0].ID)
-      //.where('ItemID', '=', 'Items.ID')
-      .select('Messages.Content','Messages.User_from', 'Users.username', 'Items.Category', 'Items.Title', 'Items.Image', 'Items.Description','Items.Price','Items.ID')
+      .select('Messages.Content','Messages.User_from', 'Users.username', 'Items.Category', 'Items.Title', 'Items.Description','Items.Price','Items.ID')
       .then(function(messages) {
         res.render("user-dashboard",{
           categories: categories,
@@ -121,6 +123,9 @@ router.get("/admin-dashboard", (req, res)=> {
     .then(function(users) {
       knex('Items')
       .join('Users', 'Items.UserID', '=', 'Users.ID')
+      .leftJoin('Images','Items.ID','=','Images.ItemID')
+      .groupBy('Items.ID','Users.username')
+      .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.UserID','Items.Category', 'Items.Description','Items.Price')
       .where('Approved',false)
       .then(function(items) {
         res.render("admin-dashboard",{
@@ -225,8 +230,10 @@ router.post("/items-search", (req, res, next)=> {
     knex('Items')
     .join('Users', 'Items.UserID', '=', 'Users.ID')
     .where('Title', 'ilike', "%"+holdSearch+"%") // replaced var string with holdSearch here
+    .leftJoin('Images','Items.ID','=','ItemID')
+    .groupBy('Items.ID','Users.username')
     .where('Approved',true)
-    .select('Items.ID','Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+    .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Description','Items.Price')
     .then(function(items) {
      if(items.length == 0){
       console.log("No results (no category)");
@@ -239,8 +246,10 @@ router.post("/items-search", (req, res, next)=> {
     knex('Items')
     .join('Users', 'Items.UserID', '=', 'Users.ID')
     .where('Title', 'ilike', "%"+holdSearch+"%") // replaced var string with holdSearch here
+    .leftJoin('Images','Items.ID','=','ItemID')
+    .groupBy('Items.ID','Users.username')
     .where('Approved',true)
-    .select('Items.ID','Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Image', 'Items.Description','Items.Price')
+    .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.UserID', 'Users.username', 'Items.Category', 'Items.Description','Items.Price')
     .where('Category', req.body.dropdown)   //Then, we filter by category
     .then(function(items) {
      if(items.length == 0){
