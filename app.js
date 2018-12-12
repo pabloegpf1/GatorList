@@ -9,13 +9,13 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt')
-
-var request = require('request');
-
+const request = require('request');
 const Knex = require('knex');
-const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'development'])
-
-var expressLayouts = require('express-ejs-layouts');
+const knex = Knex(require('./knexfile')[process.env.NODE_ENV || 'development']);
+const expressLayouts = require('express-ejs-layouts');
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
 app.set("view engine", "ejs");
 
@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
-    secret: 'secret', //ToDo we need to change this (is an env var needed, would that even work?)
-    saveUninitialized: true,
-    resave: true
-  }));
+  secret: 'secret', //ToDo we need to change this (is an env var needed, would that even work?)
+  saveUninitialized: true,
+  resave: true
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,8 +48,7 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(new localStrategy({
   passReqToCallback: true
-},
-function(req, username, password, done) {
+},function(req, username, password, done) {
   knex('Users').where('username',username)
   .then(function(user) {
     console.log("user: "+user[0].username);
@@ -66,35 +65,6 @@ function(req, username, password, done) {
    return done(null, false, req.flash('authMessage', "User not found"));
  })
 }));
-
-var aws = require('aws-sdk'),
-multer = require('multer'),
-multerS3 = require('multer-s3');
-aws.config.update({
-  secretAccessKey: 'oCHbzlfw5zpikd8zTA+Aq8V8gxjqYRFAL1Y4IBqi',
-  accessKeyId: 'AKIAIFB6XVADWDUAZF4A',
-  region: 'us-east-2'
-});
-
-var s3 = new aws.S3();
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: 'gatorlist',
-    acl: 'public-read',
-    metadata: function (req, file, cb) {
-      cb(null, {fieldName: 'image'});
-    },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString() + ".png")
-    }
-  })
-})
-
-app.post('/upload', upload.single('image'), (req, res)=> {
- let imageLink = req.file.location
-
-})
 
 knex.migrate
 .latest()
