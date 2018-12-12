@@ -225,18 +225,31 @@ router.post('/register', function(req, res) {
   });
 });
 
-router.post("/post", upload.array('image',4), (req, res, next)=> {
-  return res.json({'imageUrl': req.file.location});
-  //let userID = req.user[0].ID;
-  /*knex('Items')
-  .insert({
-    UserID: userID,
-    Title: req.body.name,
-    Price: req.body.price,
-    Description: req.body.descrition,
-    Category: req.body.category
-  })
-  .then(res.redirect("/"));*/
+router.post("/post", upload.array('image', 4), async (req, res, next)=> {  
+  try{
+    let userID = req.user[0].ID;
+
+    const item = await knex('Items').insert({
+      UserID: userID,
+      Title: req.body.name,
+      Price: req.body.price,
+      Description: req.body.descrition,
+      Category: req.body.category
+    }).returning('ID')
+    
+    itemId = item[0]
+
+    req.files.forEach(async file => {
+      await knex('Images').insert({
+        ItemID: itemId,
+        Link: file.location
+      })
+    })
+    
+    res.redirect("/")
+  } catch(err) {
+    console.log(err);
+  }
 })
 
 /*
