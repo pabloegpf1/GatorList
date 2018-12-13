@@ -61,10 +61,11 @@ router.get("/login", (req, res)=> {
 })
 })
 
-router.get("/logout",(req, res)=>{
+/*Logout handled with Passport, created by Harry Zhang*/
+router.get("/logout", (req, res)=> {
 
   req.logout();
-  
+  req.session.destroy();
   res.redirect('/');
 })
 
