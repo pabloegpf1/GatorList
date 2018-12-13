@@ -61,6 +61,16 @@ router.get("/login", (req, res)=> {
 })
 })
 
+router.get("/logout",(req, res)=>{
+
+  req.logout();
+  
+  res.redirect('/');
+})
+
+
+
+
 router.get("/", (req, res, next)=> {
   knex("Items")
   .join('Users', 'Items.UserID', '=', 'Users.ID')
