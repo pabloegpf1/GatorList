@@ -33,6 +33,12 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*still testing this for rerendering of navbar(authoR:Harry Zhang)*/
+app.use(function(req, res, next)
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+)
+
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 
