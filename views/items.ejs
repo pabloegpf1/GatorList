@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <!-- Head -->
-        <%- include('partials/head') %>
-        <title>Home</title>
-        <!-- Style for Navigation and Containers -->
-        <%- include('partials/Style') %>
-        <!-- Style for Card container -->
-        <style>
-
+<head>
+    <!-- Head -->
+    <%- include('partials/head') %>
+    <title>Home</title>
+    <!-- Style for Navigation and Containers -->
+    <%- include('partials/Style') %>
+    <!-- Style for Card container -->
+    <style>
         #items-pic {
            height: 150px;
            width: 250px;
@@ -57,33 +56,38 @@
         }
 
         </style>
-    </head>
-    <body>
-        <!-- Header -->
-        <%- include('partials/header') %>
-        <!-- Navigation -->
-        <%- include('partials/navbar') %>
-        <!-- Card container for post -->
-        <div class="container-items">
-            <h3 align="center">Welcome to <strong>GatorList</strong>, where you can browse, purchase, and sell items between fellow San Francisco State University students.</h3><br>
-            <h1>Recent Posts</h1>
-            <h4 align="right">Showing <%= items.length %> - <%= items.length %> out of <%= items.length %></h4>
 
-            <!-- Show all search results -->
-            <!-- Loop through the whole list minus 1. Prints all even lists contents -->
-            <!-- Creates last item outside of for loop if odd -->
+</head>
 
-            <% let i = 0; while (i < items.length-1) { %>
-            <div class="card-deck">
-                <div class="row">
-
-                    <!-- First Card Column -->
-                    <div class="card">
-                        <div class="row no-gutters">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5 class="card-title"><%= items[i].Title %></h5>
-
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- Navigation -->
+    <%- include('partials/navbar') %>
+    <!-- Card container for post -->
+    <div class="container-items">
+        <!-- Welcome Alert that closes on exit -->
+        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+            <h3 align="center">Welcome to <strong>GatorList</strong>, where you can browse, purchase, and sell items between fellow San Francisco State University students.</h3>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <h1>Recent Posts</h1><br>
+        <a href="/" class="btn btn-secondary style="display: inline-block;">Back</a>
+        <h4 style="display: inline-block; float: right;">Showing <%= items.length %> out of <%= items.length %></h4>
+        <!-- Show all search results -->
+        <!-- Loop through the whole list minus 1. Prints all even lists contents -->
+        <!-- Creates last item outside of for loop if odd -->
+        <% let i = 0; while (i < items.length-1) { %>
+        <div class="card-deck">
+            <div class="row">
+                <!-- First Card Column -->
+                <div class="card">
+                    <div class="row no-gutters">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="card-title"><%= items[i].Title %></h5>
                                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                       <div class="carousel-inner">
                                         <div class="carousel-item active">
@@ -115,16 +119,25 @@
                                                 <%= items[i].Description %>
                                             </div>
                                     </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>Description: </strong><br>
+                                        <div id="description">
+                                            <%= items[i].Description %>
+                                        </div>
                                 </div>
                             </div>
-                            <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: $<%= items[i].Price %></strong><br>
-                                    <strong>Seller: <%= items[i].username %></strong>
-                                    <a href="/send-message?to_id=<%= items[i].UserID %>&username=<%= items[i].username %>&item=<%= items[i].Title %>&item_id=<%= items[i].ID %>" class="btn btn-primary" class="btn btn-primary" style="float: right;">Contact Seller</a>
-                                </p>
-                            </div>
+                        </div>
+                        <div class="card-footer w-100 text-muted">
+                            <p><strong>Price: $<%= items[i].Price %></strong><br>
+                                <strong>Seller: <%= items[i].username %></strong>
+                                <a href="/send-message?to_id=<%= items[i].UserID %>&username=<%= items[i].username %>&item=<%= items[i].Title %>&item_id=<%= items[i].ID %>" class="btn btn-primary" style="float: right;">Contact Seller</a>
+                            </p>
                         </div>
                     </div>
+                    
                     <!-- End First Card Column -->
 
                     <% if (i != items.length-1) { %>
@@ -166,24 +179,31 @@
                                                 <%= items[i+1].Description %>
                                             </div>
                                     </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>Description: </strong><br>
+                                        <div id="description">
+                                            <%= items[i+1].Description %>
+                                        </div>
                                 </div>
                             </div>
-                            <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: $<%= items[i+1].Price %></strong><br>
-                                    <strong>Seller: <%= items[i+1].username %></strong>
-                                    <a href="/send-message?to_id=<%= items[i+1].UserID %>&username=<%= items[i+1].username %>&item=<%= items[i+1].Title %>&item_id=<%= items[i+1].ID %>"class="btn btn-primary" style="float: right;">Contact Seller</a>
-                                </p>
-                            </div>
+                        </div>
+                        <div class="card-footer w-100 text-muted">
+                            <p><strong>Price: $<%= items[i+1].Price %></strong><br>
+                                <strong>Seller: <%= items[i+1].username %></strong>
+                                <a href="/send-message?to_id=<%= items[i+1].UserID %>&username=<%= items[i+1].username %>&item=<%= items[i+1].Title %>&item_id=<%= items[i+1].ID %>"class="btn btn-primary" style="float: right;">Contact Seller</a>
+                            </p>
                         </div>
                     </div>
-                    <% i++; %>
-                    <% } %>
-                    <!-- End Second Card Column -->
                 </div>
+                <% i++; %>
+                <% } %>
+                <!-- End Second Card Column -->
             </div>
             <% i++; %>
             <% } %>
-
             <!-- Show last item in odd numbered list-->
             <% if(items.length % 2 == 1) { %>
             <div class="card-deck w-50"> <!-- HALVES the whole card size here: w-50 -->
@@ -225,26 +245,33 @@
                                                 <%= items[items.length-1].Description %>
                                             </div>
                                     </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong>Description: </strong><br>
+                                        <div id="description">
+                                            <%= items[items.length-1].Description %>
+                                        </div>
                                 </div>
                             </div>
-                            <div class="card-footer w-100 text-muted">
-                                <p><strong>Price: $<%= items[items.length-1].Price %></strong><br>
-                                    <strong>Seller: <%= items[items.length-1].username %></strong>
-                                    <a href="/send-message?to_id=<%= items[items.length-1].UserID %>&username=<%= items[items.length-1].username %>&item=<%= items[items.length-1].Title %>&item_id=<%= items[items.length-1].ID %>" class="btn btn-primary" style="float: right;">Contact Seller</a>
-                                </p>
-                            </div>
+                        </div>
+                        <div class="card-footer w-100 text-muted">
+                            <p><strong>Price: $<%= items[items.length-1].Price %></strong><br>
+                                <strong>Seller: <%= items[items.length-1].username %></strong>
+                                <a href="/send-message?to_id=<%= items[items.length-1].UserID %>&username=<%= items[items.length-1].username %>&item=<%= items[items.length-1].Title %>&item_id=<%= items[items.length-1].ID %>" class="btn btn-primary" style="float: right;">Contact Seller</a>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <% } %>
-            <!-- End of last odd item -->
-            <!-- End of Show All Search Results -->
-
+        </div>
+        <% } %>
+        <!-- End of last odd item -->
+        <!-- End of Show All Search Results -->
         <!-- Script to hide 'home' on navbar -->
         <script>
         $(".navbar-nav li").eq(0).hide();
-
         </script>
         <script language="JavaScript" type="text/javascript">
   $(document).ready(function(){
