@@ -19,7 +19,7 @@
 
     <div class="container-form">
         <h1><center>Message</center></h1>
-        <form action="/send-message" method="post">
+        <form action="/send-message?item=<%= item_id %>&user_to=<%= user_to %>" method="post">
             <div class="form-group">
                 <label for="Item-Id">Item:</label>
                 <input type="text" class="form-control" name="item-id" placeholder="<%= item_title %>"disabled>
@@ -29,9 +29,8 @@
                 <input type="text" class="form-control" name="user-id" placeholder="<%= username_to %>" disabled>
             </div>
             <div class="form-group">
-                <label for="message-body">Message:</label>
-                <textarea class="form-control" rows="3" name="message-body" rows="3" placeholder="Hello, I am interested in..."></textarea>
-
+                <label for="message_body">Message:</label>
+                <textarea class="form-control" rows="3" name="message_body" id="message_body" rows="3" placeholder="Hello, I am interested in..."></textarea>
             </div>
             <button type="reset" value="Reset" class="btn btn-danger">Cancel</button>
             <button type="submit" class="btn btn-success">Send Message</button>

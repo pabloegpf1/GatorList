@@ -49,7 +49,7 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Images').then(exists => {
       if(!exists){
         return knex.schema.createTable('Images', table =>{
-          table.integer('ItemID').references('ID').inTable('Items');
+          table.integer('ItemID').references('ID').inTable('Items').onDelete('CASCADE');
           table.text('Link');
         })
       }
