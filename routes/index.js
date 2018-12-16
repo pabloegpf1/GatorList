@@ -62,7 +62,7 @@ router.post('/approveitem',(req, res)=> {
     knex('Items')
     .where('ID','=',req.query.id)
     .update('Approved',true)
-    .then('/admin-dashboard');
+    .then(res.redirect('/admin-dashboard'));
   }
 });
 
@@ -118,9 +118,10 @@ router.get("/", (req, res, next)=> {
   .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.Description', 'Items.UserID', 'Users.username', 'Items.Category','Items.Price')
   .then(function(items) {
     res.render("items",{
-     items: items,
-     categories: categories,
-     ShowBanner: req.user != undefined //only show banner if user is not logged in
+      title: "Recent Items",
+      items: items,
+      categories: categories,
+      ShowBanner: req.user == undefined //only show banner if user is not logged in
    })
   });
 })
@@ -165,7 +166,7 @@ router.get("/admin-dashboard", (req, res)=> {
       .join('Users', 'Items.UserID', '=', 'Users.ID')
       .leftJoin('Images','Items.ID','=','Images.ItemID')
       .groupBy('Items.ID','Users.username')
-      .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.UserID','Items.Category', 'Items.Description','Items.Price')
+      .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Users.username', 'Items.Title','Items.UserID','Items.Category', 'Items.Description','Items.Price')
       .where('Approved',false)
       .then(function(items) {
         res.render("admin-dashboard",{
@@ -225,7 +226,7 @@ router.post('/register', function(req, res) {
   });
 });
 
-router.post("/post", upload.array('image', 4), async (req, res, next)=> {  
+router.post("/post", upload.array('image', 4), async (req, res, next)=> {
   try{
     let userID = req.user[0].ID;
 
@@ -236,7 +237,7 @@ router.post("/post", upload.array('image', 4), async (req, res, next)=> {
       Description: req.body.descrition,
       Category: req.body.category
     }).returning('ID')
-    
+
     itemId = item[0]
 
     req.files.forEach(async file => {
@@ -245,7 +246,7 @@ router.post("/post", upload.array('image', 4), async (req, res, next)=> {
         Link: file.location
       })
     })
-    
+
     res.redirect("/")
   } catch(err) {
     console.log(err);
@@ -277,6 +278,7 @@ router.post("/items-search", (req, res, next)=> {
       res.redirect('/');// If there is no results, we show all items
     }else{
       res.render('items',{
+        title: "Search results",
         items: items,
         categories: categories,
         ShowBanner: false
@@ -297,6 +299,7 @@ router.post("/items-search", (req, res, next)=> {
       res.redirect('/');// If there is no results, we show all items
     }else{
       res.render('items',{
+        title: "Search results",
         items: items,
         categories: categories,
         ShowBanner: false

@@ -5,83 +5,75 @@ exports.seed = function(knex, Promise) {
     // Inserts seed entries
     return knex('Items').insert([
     {
-      ID: 1,
+      ID: 1000,
       Title: 'Databases book',
-      UserID: 5,
+      UserID: 500,
       Category: 'Books',
       Price: 12,
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/fundamentals-of-database-systems-for-vtu-original-imadtkg5qhb63jdz.jpeg',
       Approved: true
     },
     {
-      ID: 2,
+      ID: 2000,
       Title: 'Batteries',
-      UserID: 3,
+      UserID: 300,
       Price: 3,
       Category: 'Electronics',
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-      Image: 'https://s3.amazonaws.com/csc648team12/ZOLL_batteries_530x%402x.png',
       Approved: true
     },
     {
-     ID: 3,
+     ID: 3000,
      Title: 'Chair',
-     UserID: 1,
+     UserID: 100,
      Category: 'Home',
      Price: 18,
      Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-     Image: 'https://s3.amazonaws.com/csc648team12/MontereyChairCharcoalSHS16_1x1.jpeg',
      Approved: true
    },
    {
-     ID: 4,
+     ID: 4000,
      Title: 'TV',
-     UserID: 4,
+     UserID: 400,
      Category: 'Electronics',
      Price: 150,
      Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-     Image: 'https://s3.amazonaws.com/csc648team12/636524900539955437-Element-RokuTV-HERO.jpg',
      Approved: true
    },
    {
-     ID: 5,
+     ID: 5000,
      Title: 'Physics book',
-     UserID: 6,
+     UserID: 600,
      Category: 'Books',
      Price: 20,
      Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-     Image: 'https://s3.amazonaws.com/csc648team12/31-500x500.jpg',
      Approved: true
    },
    {
-     ID: 7,
+     ID: 7000,
      Title: 'Calculus book',
-     UserID: 7,
+     UserID: 700,
      Category: 'Books',
      Price: 10,
      Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-     Image: 'https://s3.amazonaws.com/csc648team12/main-qimg-7994ee6ba77511ed9c1fa1999a6ec841-c.jpeg',
      Approved: true
    },
    {
-    ID: 8,
+    ID: 8000,
     Title: 'Table',
-    UserID: 2,
+    UserID: 200,
     Category: 'Home',
     Price: 25,
     Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-    Image: 'https://s3.amazonaws.com/csc648team12/download.jpeg',
     Approved: true
   },
   {
-   ID: 9,
+   ID: 9000,
    Title: 'Laptop',
-   UserID: 3,
+   UserID: 300,
    Price: 125,
    Category: 'Electronics',
    Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Gravida arcu ac tortor dignissim. A pellentesque sit amet porttitor eget dolor morbi non. Nam aliquam sem et tortor consequat id porta.',
-   Image: 'https://s3.amazonaws.com/csc648team12/laptop.jpg',
    Approved: true
  }
  ]);

@@ -31,7 +31,6 @@ exports.up = function up(knex) {
           table.text('Description');
           table.string('Category').references('Category').inTable('Categories').onDelete('CASCADE');
           table.boolean('Approved').defaultTo(false);
-          table.string('Image');
           table.timestamp('created_at').defaultTo(knex.fn.now());
         })
       }
