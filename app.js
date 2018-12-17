@@ -98,11 +98,6 @@ const upload = multer({
   })
 })
 
-app.post('/upload', upload.single('image'), (req, res)=> {
- let imageLink = req.file.location
-
-})
-
 knex.migrate
 .latest()
 .then(() =>
