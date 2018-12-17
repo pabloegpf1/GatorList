@@ -64,7 +64,7 @@ router.get("/login", (req, res)=> {
 /*Logout handled with Passport*/
 
 router.get("/logout", (req, res)=> {
-  console.log('logging out has been reached');
+  
   req.logout();
   res.redirect('/');
 })
