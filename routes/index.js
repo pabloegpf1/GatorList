@@ -61,7 +61,7 @@ router.get("/login", (req, res)=> {
 })
 })
 
-/*Logout handled with Passport, created by Harry Zhang*/
+/*Logout handled with Passport*/
 
 router.get("/logout", (req, res)=> {
   console.log('logging out has been reached');
