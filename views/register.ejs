@@ -23,7 +23,7 @@
             <strong><p>Existing User?</strong><br>
             <a href="/login" target="_blank">Login here</a></p>
             <p align="right">Required *</p>
-            <form class="needs-validation" action="/register" method="post" id="register-form" novalidate="">
+            <form class="needs-validation" action="/register" method="post" id="register-form" novalidate>
                 <div class="form-group">
                     <label for="firstname">Enter First name: *</label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required>
@@ -65,7 +65,7 @@
                 <!-- Div that loads captcha -->
                 <div clas="form-group" align="center">
                     <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV"></div><br>
-                    <input type="submit" method="post" class="btn btn-success">
+                    <input type="submit" method="post" class="btn btn-success" required>
             </form>
         </div>
         <!-- Script to Verify with Google for Captcha -->
@@ -73,7 +73,6 @@
         document.getElementById('register-form').addEventListener('submit', submitForm);
 
         function submitForm(e) {
-        //e.preventDefault();
 
             const name = document.querySelector('#name').value;
             const lastname = document.querySelector('#lastname').value;
