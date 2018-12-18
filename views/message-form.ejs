@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Head -->
+    <%- include('partials/head') %>
+    <title>
+        Send A Message
+    </title>
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include('partials/header') %>
+    <!-- Navigation -->
+    <%- include('partials/navbar') %>
+    <!-- Style for Navigation bar-->
+    <%- include('partials/Style') %>
+
+    <div class="container-form">
+        <h1><center>Message</center></h1>
+        <form class="form-validation" action="/send-message?item=<%= item_id %>&user_to=<%= user_to %>" method="post" novalidate>
+            <div class="form-group">
+                <label for="Item-Id">Item:</label>
+                <input type="text" class="form-control" name="item-id" placeholder="<%= item_title %>"disabled>
+            </div>
+            <div class="form-group">
+                <label for="user-id">Send to:</label>
+                <input type="text" class="form-control" name="user-id" placeholder="<%= username_to %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="message_body">Message:</label>
+                <textarea class="form-control" rows="3" name="message_body" id="message_body" maxlength="500" rows="3" placeholder="Hello, I am interested in..." required></textarea>
+                <h6 align="right" id="count_message"></h6>
+
+                 <div class="invalid-feedback">
+                    Please enter a message.
+                </div>
+            </div>
+            <button type="reset" value="Reset" class="btn btn-danger">Cancel</button>
+            <button type="submit" class="btn btn-success">Send Message</button>
+    </div>
+    </form>
+    </div>
+
+   <!-- Script to render active tab on navbar -->
+    <%- include('partials/nav-active') %>
+
+<!-- Form Validation Script -->
+<script>
+    (function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+<!-- Script for checking character count -->
+<script>
+var text_max = 500;
+$('#count_message').html(text_max + ' characters remaining');
+
+$('#message_body').keyup(function() {
+    var text_length = $('#message_body').val().length;
+    var text_remaining = text_max - text_length;
+
+    $('#count_message').html(text_remaining + ' characters remaining');
+});
+</script>
+</body>
+
+</html>

@@ -12,7 +12,10 @@ knex("Categories").select('Category').then(function(ret){
 
 router.get("/", (req, res,next)=> {
 
-   res.render("team",{categories: categories})
+   res.render("team",{
+      categories: categories,
+      loggedIn: req.user != undefined
+   })
 })
 
 router.get("/harry", (req, res,next)=> {
@@ -21,7 +24,8 @@ router.get("/harry", (req, res,next)=> {
       title: "Harry",
       name: "Harry Zhang",
       image_url: "https://image.ibb.co/mqsOsK/Harry_Profile.jpg",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 
@@ -31,7 +35,8 @@ router.get("/jack", (req, res,next)=> {
       title: "Jack",
       name: "Jack",
       image_url: "https://image.ibb.co/cERSKz/Profile_Jack.jpg",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 
@@ -41,7 +46,8 @@ router.get("/stephanie", (req, res,next)=> {
       title: "Stephanie",
       name: "Stephanie",
       image_url: "https://image.ibb.co/eCZQ6e/Steph_Profile.jpg",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 
@@ -51,7 +57,8 @@ router.get("/marlo", (req, res,next)=> {
       title: "Marlo",
       name: "Marlo",
       image_url: "https://image.ibb.co/d2HpXK/Profile_Marlo.jpg",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 
@@ -61,7 +68,8 @@ router.get("/johnny", (req, res,next)=> {
       title: "Johnny",
       name: "Johnny",
       image_url: "https://image.ibb.co/by37Kz/Profile_Johnny.jpg",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 
@@ -71,7 +79,8 @@ router.get("/syed", (req, res,next)=> {
       title: "Syed",
       name: "Syed",
       image_url: "https://image.ibb.co/jzqMez/Syed_Profile.jpg",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 
@@ -81,7 +90,8 @@ router.get("/pablo", (req, res,next)=> {
       title: "Pablo",
       name: "Pablo",
       image_url: "https://image.ibb.co/fB8JRe/Pablo_Profile.png",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 

@@ -4,10 +4,10 @@ exports.up = function up(knex) {
       if(!exists){
         return knex.schema.createTable('Users', table =>{
           table.increments('ID');
-          table.string('UserName').unique();
+          table.string('username').unique();
           table.string('FirstName');
           table.string('LastName');
-          table.jsonb('Password');
+          table.string('password');
           table.boolean('Admin').defaultTo(false);
         })
       }
@@ -30,9 +30,7 @@ exports.up = function up(knex) {
           table.string('Price');
           table.text('Description');
           table.string('Category').references('Category').inTable('Categories').onDelete('CASCADE');
-          table.boolean('Status');
-          table.string('Image');
-          table.integer('ApprovedBy').references('ID').inTable('Users');
+          table.boolean('Approved').defaultTo(false);
           table.timestamp('created_at').defaultTo(knex.fn.now());
         })
       }
@@ -40,10 +38,18 @@ exports.up = function up(knex) {
     knex.schema.hasTable('Messages').then(exists => {
       if(!exists){
         return knex.schema.createTable('Messages', table =>{
-          table.integer('User_from').unique().references('ID').inTable('Users');
-          table.integer('User_to').unique().references('ID').inTable('Users');
-          table.integer('ItemID').unique().references('ID').inTable('Items');
-          table.text('Content').unique();
+          table.integer('User_from').references('ID').inTable('Users');
+          table.integer('User_to').references('ID').inTable('Users');
+          table.integer('ItemID').references('ID').inTable('Items');
+          table.text('Content');
+        })
+      }
+    }),
+    knex.schema.hasTable('Images').then(exists => {
+      if(!exists){
+        return knex.schema.createTable('Images', table =>{
+          table.integer('ItemID').references('ID').inTable('Items').onDelete('CASCADE');
+          table.text('Link');
         })
       }
     }),
@@ -56,11 +62,11 @@ exports.up = function up(knex) {
       }
     })
     ])
-
 };
 
 exports.down = function down(knex) {
   return knex.schema
+  .dropTableIfExists('Images')
   .dropTableIfExists('Favorites')
   .dropTableIfExists('Messages')
   .dropTableIfExists('Items')
