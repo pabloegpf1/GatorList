@@ -90,7 +90,8 @@ router.get("/pablo", (req, res,next)=> {
       title: "Pablo",
       name: "Pablo",
       image_url: "https://image.ibb.co/fB8JRe/Pablo_Profile.png",
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
    })
 })
 

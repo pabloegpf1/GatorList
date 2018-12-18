@@ -99,9 +99,9 @@
                         <tr>
                             <th scope="row">
                                 <%= users[i].username %>
-                                <form action="" method="" style="display: inline;">
+                                <form action="/deleteuser?id=<%= users[i].ID %>" method="post" style="display: inline;">
                                         <button type="submit" class="btn btn-danger" style="float: right;">Delete</button>
-                                    </form>
+                                </form>
                             </th>
                         </tr>
                         <% } %>

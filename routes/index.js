@@ -77,6 +77,13 @@ router.post('/denyitem',(req, res)=> {
   }
 });
 
+router.post('/deleteuser',(req, res)=> {
+  knex('Users')
+  .where('ID','=',req.query.id)
+  .del()
+  .then(res.redirect('/admin-dashboard'));
+});
+
 router.get("/register", (req, res)=> {
   res.render("register",{
     categories: categories,
@@ -170,7 +177,7 @@ router.get("/admin-dashboard", (req, res)=> {
     res.redirect('/');
   }else{
     knex('Users')
-    .select('username')
+    .select('username','ID')
     .then(function(users) {
       knex('Items')
       .join('Users', 'Items.UserID', '=', 'Users.ID')
