@@ -246,7 +246,7 @@ router.post("/post", upload.array('image', 4), async (req, res, next)=> {
       UserID: userID,
       Title: req.body.name,
       Price: req.body.price,
-      Description: req.body.descrition,
+      Description: req.body.description,
       Category: req.body.category
     }).returning('ID')
 
