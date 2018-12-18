@@ -93,8 +93,7 @@ router.post("/register", (req, res)=> {
     LastName: req.body.lastname,
     password: hash
   })
-  .then();
-  res.redirect("/");
+  .then(res.redirect('/'));
 })
 
 router.get("/post", (req, res)=> {
@@ -146,16 +145,16 @@ router.get("/user-dashboard", (req, res)=> {
     .groupBy('Items.ID','Users.username')
     .where('UserID', '=', req.user[0].ID)
     .select(knex.raw('array_agg("Link") as Images'),'Items.Title', 'Items.UserID', 'Users.username', 'Items.Category', 'Items.Description','Items.Price', 'Items.ID')
-    .then(function(items) {
+    .then(function(Useritems) {
       knex('Messages')
       .join('Users','Users.ID','=', 'User_from')
-      .join('Items', 'Items.UserID', '=', 'Users.ID')
+      .join('Items', 'Items.ID', '=', 'ItemID')
       .where('User_to', '=', req.user[0].ID)
       .select('Messages.Content','Messages.User_from', 'Users.username', 'Items.Category', 'Items.Title', 'Items.Description','Items.Price','Items.ID')
       .then(function(messages) {
         res.render("user-dashboard",{
           categories: categories,
-          items: items,
+          items: Useritems,
           messages: messages,
           loggedIn: req.user != undefined
         })
@@ -219,7 +218,7 @@ router.post("/send-message", function(req, res) {
   .then(res.redirect("/"));
 })
 
-router.post('/register', function(req, res) {
+router.post('/validation', function(req, res) {
   if (req.body.captcha === undefined ||
     req.body.captcha === '' ||
     req.body.captcha === null) {
@@ -237,7 +236,6 @@ router.post('/register', function(req, res) {
       return res.json({ "success": true, "msg": "Captcha passed" });
     }
   });
-  res.redirect("/");
 });
 
 router.post("/post", upload.array('image', 4), async (req, res, next)=> {
