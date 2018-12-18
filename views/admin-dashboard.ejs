@@ -137,14 +137,13 @@
                                             </div>
                                             <div class="card-footer w-100 text-muted">
                                                 <p><strong>Price: <%=  items[i].Price %></strong><br>
-                                                    <strong>Seller: <%=  items[i].username %></strong>
+                                                    <strong>Seller: <%=  items[i].username %></strong></p>
                                                     <form action="/approveitem?id=<%= items[i].ID %>" method="post">
                                                         <button type="submit" class="btn btn-success" style="float: right;">Approve</a>
                                                     </form>
                                                     <form action="/denyitem?id=<%= items[i].ID %>" method="post">
                                                         <button type="submit"class="btn btn-danger" style="float: right; margin-right: 5px;">Deny</a>
                                                     </form>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
