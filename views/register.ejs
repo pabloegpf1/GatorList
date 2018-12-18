@@ -65,7 +65,7 @@
                 <!-- Div that loads captcha -->
                 <div clas="form-group" align="center">
                     <div class="g-recaptcha" data-sitekey="6LdOF3gUAAAAAA9xNGkTe8oNRIEX_Njojd3iYHnV"></div><br>
-                    <input type="submit" action="/captcha" method="post" class="btn btn-success">
+                    <input type="submit" action="/register" method="post" class="btn btn-success">
             </form>
         </div>
         <!-- Script to Verify with Google for Captcha -->
@@ -97,14 +97,12 @@
                     })
                 })
 
-                .then((res) => {
-                    window.location.href = res.url
-                })
+                .then((res) => res.json())
                 .then((data) => {
                     //we can use this for what we want to do with the data
                     console.log(data);
                     //alert(data.msg);
-                }).catch(err => console.log(err));
+                });
         }
         </script>
         <!-- Script to render active tab on navbar -->
