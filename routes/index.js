@@ -7,7 +7,6 @@ const knex = Knex(require('../knexfile.js') [process.env.NODE_ENV || 'developmen
 var aws = require('aws-sdk');
  multer = require('multer');
  multerS3 = require('multer-s3');
-var request = require('request');
 
 let categories;
 
