@@ -27,7 +27,7 @@
                     <input type="text" id="text" name="search" placeholder="Search" aria-label="Search" input size="30" class="form-control ml-sm-0" value=<%=holdSearch %> >
                     <span class="input-group-btn">
                            <input type="submit" action="/items-search" method="post" class="btn btn-secondary my-0 ml-sm-0" value="Go">
-   </span>
+                    </span>
                 </div>
         </div>
         </form>
@@ -45,12 +45,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/post"  >Sell</a>
                 </li>
+                <%if (loggedIn == false) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="/register"  >Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/login"  >Login</a>
                 </li>
+                <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user-dashboard"  >User Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/"  >Log Out</a>
+                </li>
+                <% } %>
             </ul>
         </div>
     </div>

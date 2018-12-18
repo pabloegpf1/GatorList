@@ -79,7 +79,8 @@ router.post('/denyitem',(req, res)=> {
 
 router.get("/register", (req, res)=> {
   res.render("register",{
-    categories: categories
+    categories: categories,
+    loggedIn: req.user != undefined
   })
 })
 
@@ -93,19 +94,22 @@ router.post("/register", (req, res)=> {
     password: hash
   })
   .then();
-  res.redirect("/")
+  res.redirect("/");
 })
 
 router.get("/post", (req, res)=> {
   res.render("post",{
-    categories: categories
+    categories: categories,
+    loggedIn: req.user != undefined,
   })
 })
 
 router.get("/login", (req, res)=> {
   res.render("login",{
     categories: categories,
-    authMessage: req.flash('authMessage')
+    authMessage: req.flash('authMessage'),
+    loggedIn: req.user != undefined,
+    showBanner: false
   })
 })
 
@@ -121,7 +125,8 @@ router.get("/", (req, res, next)=> {
       title: "Recent Items",
       items: items,
       categories: categories,
-      ShowBanner: req.user == undefined //only show banner if user is not logged in
+      loggedIn: req.user != undefined,
+      showBanner: true
    })
   });
 })
@@ -146,7 +151,8 @@ router.get("/user-dashboard", (req, res)=> {
         res.render("user-dashboard",{
           categories: categories,
           items: items,
-          messages: messages
+          messages: messages,
+          loggedIn: req.user != undefined
         })
       });
     });
@@ -172,7 +178,8 @@ router.get("/admin-dashboard", (req, res)=> {
         res.render("admin-dashboard",{
           categories: categories,
           users: users,
-          items: items
+          items: items,
+          loggedIn: req.user != undefined
         })
       });
     });
@@ -190,7 +197,8 @@ router.get("/send-message", (req, res)=> {
       username_to: req.query.username,
       item_title: req.query.item,
       item_id: req.query.item_id,
-      categories: categories
+      categories: categories,
+      loggedIn: req.user != undefined
     })
   }
 })
@@ -224,10 +232,14 @@ router.post('/register', function(req, res) {
       return res.json({ "success": true, "msg": "Captcha passed" });
     }
   });
+  res.redirect("/");
 });
 
 router.post("/post", upload.array('image', 4), async (req, res, next)=> {
   try{
+    if(req.user == undefined){
+      res.redirect("/login")
+    }
     let userID = req.user[0].ID;
 
     const item = await knex('Items').insert({
@@ -281,7 +293,8 @@ router.post("/items-search", (req, res, next)=> {
         title: "Search results",
         items: items,
         categories: categories,
-        ShowBanner: false
+        loggedIn: req.user != undefined,
+        showBanner: false
       });
     }
   });
@@ -302,7 +315,8 @@ router.post("/items-search", (req, res, next)=> {
         title: "Search results",
         items: items,
         categories: categories,
-        ShowBanner: false
+        loggedIn: req.user != undefined,
+        showBanner: false
       });
     }
   });
