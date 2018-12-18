@@ -218,31 +218,24 @@ router.post("/send-message", function(req, res) {
   .then(res.redirect("/"));
 })
 
-app.post('/register', function(req, res) {
-    if (req.body.captcha === undefined ||
-        req.body.captcha === '' ||
-        req.body.captcha === null) {
-        return res.json({ "success": false, "msg": "Please select captcha" });
+router.post('/validation', function(req, res) {
+  if (req.body.captcha === undefined ||
+    req.body.captcha === '' ||
+    req.body.captcha === null) {
+    return res.json({ "success": false, "msg": "Please select captcha" });
+  }
 
+  const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
+  const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+  request(verifyUrl, (err, response, body) => { //make request to VerifyUrl
+    body = JSON.parse(body);
+    if (body.success !== undefined && !body.success) {  //If Not successful
+      return res.json({ "success": false, "msg": "Failed captcha verification" });
+    }else{//If Successful
+      return res.json({ "success": true, "msg": "Captcha passed" });
     }
-    //const key
-    const secretKey = "6LdOF3gUAAAAAJ1UCnxqwiknDtMa1aA2uj2Db_Us";
-
-    //verify URL
-    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-
-    //make request to VerifyUrl
-    request(verifyUrl, (err, response, body) => {
-        body = JSON.parse(body);
-
-        //If Not successful
-        if (body.success !== undefined && !body.success) {
-            return res.json({ "success": false, "msg": "Failed captcha verification" });
-        }
-
-        //If Successful
-        return res.json({ "success": true, "msg": "Captcha passed" });
-    });
+  });
 });
 
 router.post("/post", upload.array('image', 4), async (req, res, next)=> {
