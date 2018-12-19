@@ -129,6 +129,7 @@ router.get("/", (req, res, next)=> {
   .join('Users', 'Items.UserID', '=', 'Users.ID')
   .leftJoin('Images','Items.ID','=','ItemID')
   .groupBy('Items.ID','Users.username')
+  .orderBy('created_at','DESC')
   .where('Approved',true)
   .select(knex.raw('array_agg("Link") as Images'),'Items.ID','Items.Title','Items.Description', 'Items.UserID', 'Users.username', 'Items.Category','Items.Price')
   .then(function(items) {
