@@ -10,6 +10,6 @@ San Francisco State University: CSC648 - Software Engineering Final project.
 <img src="https://i.imgur.com/d2bFcHA.jpg" alt="Search" width="650">
 <p>
 <p align="center">
-<img src="https://i.imgur.com/FRI43JM.png" alt="Search" width="650">
+<img src="https://i.imgur.com/FRI43JM.png" alt="New item form" width="650">
 <p>
 
